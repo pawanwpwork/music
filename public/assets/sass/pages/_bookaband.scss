@@ -1,0 +1,10 @@
+label[for="frmBudget"]::after {
+    content: "$";
+    position: absolute;
+    bottom: 5px;
+    left: 3px;
+}
+
+#event_category_other {
+    display: none;
+}

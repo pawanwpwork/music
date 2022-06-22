@@ -1,0 +1,42 @@
+tested as fan
+user: info@mapleleapgroups.com
+1. on sign up page
+ sing up button needs to be added because first time looking at it dont know that to do 
+2. verification email 
+can we do it like local buzz
+3. after i placed a order from classifed i and paid with paypal i got coding 
+error
+https://livesites.live/music/paypal/success/url?PayerID=WWVBMYXY66RV2
+Swift_RfcComplianceException
+Address in mailbox given [mailto:allmusicallartist@outlook.com] does not comply with RFC 2822, 3.6.2.
+and no email is recieved for order notification for the user
+the dob calender does not work on the fan but it works musican sign up
+-------------------------------------------
+4.
+sales@mapleleapgroups.com
+maple123456
+testing as musican
+can we make the music category selection on sign up like musician search category page layout 
+because it is to legnthy
+and we have given the add category option on musican search it should not get added or should display
+ until it is approved from the back end 
+
+paypal issue 
+it order completed but when u hit it say order canceled
+in musican search user should be able search by upper case word or lower case
+--------------------------------------------------
+same issue on paypal when testing bandleader
+hr@mapleleapgroups.com
+maple123456 
+no reciept of sign up
+some time it selft it goes to admin pannel
+client has reported the same issue
+when signing in as band leader it is going to admin pannel
+on ingito window it worked fine u need to check the issue 
+it is showing me on on  user order history payment is still pending 
+but i am still able to surf the site even after the payment is cleared 
+-----------------------------
+
+
+
+

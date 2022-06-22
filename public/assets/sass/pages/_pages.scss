@@ -1,0 +1,18 @@
+.page404 {
+    text-align: center;
+    padding-top: 6rem;
+    min-height: calc(100vh - 16rem);
+
+    img {
+        display: block;
+        width: 100%;
+        max-width: 50rem;
+        margin: 0 auto 2.5rem;
+    }
+
+    a {
+        display: inline-block;
+        padding: .75rem 1rem;
+        background-color: $color-1;
+    }
+}

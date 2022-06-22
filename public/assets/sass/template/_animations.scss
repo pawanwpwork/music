@@ -1,0 +1,63 @@
+.anim-delay750 {
+  animation-delay: .75s;
+}
+
+.anim-delay1000 {
+  animation-delay: 1s;
+}
+
+.anim-delay1250 {
+  animation-delay: 1.25s;
+}
+
+.anim-delay1500 {
+  animation-delay: 1.5s;
+}
+
+.anim-delay1750 {
+  animation-delay: 1.75s;
+}
+
+.anim-delay2000 {
+  animation-delay: 2s;
+}
+
+
+@-webkit-keyframes carouimgzoom {
+  from {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  to {
+    -webkit-transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+
+@keyframes carouimgzoom {
+  from {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  to {
+    -webkit-transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes sonar {
+  from {
+    opacity: 1;
+    width: 0;
+    height: 0;
+  }
+
+  to {
+    opacity: 0;
+    width: 500px;
+    height: 500px;
+  }
+}

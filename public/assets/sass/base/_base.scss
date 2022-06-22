@@ -1,0 +1,161 @@
+html {
+	font-size: 62.5%;
+	overflow-x: hidden;
+	max-width: 100vw;
+
+	&.overflowYStop {
+		overflow-y: hidden;
+	}
+
+	@include respond(tabland) {
+		font-size: 60%;
+
+		&.overflowYStop-min {
+			overflow-y: hidden;
+		}
+	}
+
+	@include respond(tabport) {
+		font-size: 58%;
+	}
+
+	@include respond(phone) {
+		font-size: 55%;
+	}
+}
+
+body {
+	color: #fff;
+	font-size: 15px;
+	overflow-x: hidden;
+	font-family: $font-title-3;
+	max-width: 100%;
+
+	*::-moz-selection,
+	*::selection {
+		background-color: $color-1;
+		color: #fff;
+	}
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	outline: none;
+	transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-webkit-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+
+	&:hover {
+		color: inherit;
+		text-decoration: none;
+		outline: none;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Dosis;
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1 {
+	font-size: 3.2rem;
+}
+
+h2 {
+	font-size: 3rem;
+}
+
+h3 {
+	font-size: 2.4rem;
+}
+
+.heading {
+	font-family: $font-title-3;
+	font-size: 3rem;
+	line-height: 1.6;
+	margin: 0 0 1rem;
+
+	&-page {
+		font-family: $font-title-3;
+		font-size: 3.2rem;
+		font-weight: 700;
+		margin: 0 0 3rem;
+		text-transform: uppercase;
+	}
+
+	&-min {
+		font-family: $font-title-3;
+		font-size: 2rem;
+		font-weight: 600;
+		margin: 0 0 1.5rem;
+	}
+}
+
+p {
+	font-family: $font-title-3;
+	font-size: 1.6rem;
+	font-weight: 300;
+
+	&.p {
+		&-large {
+			font-size: 1.8rem;
+			line-height: 1.8;
+		}
+	}
+}
+
+.wow {
+	animation-delay: .5s;
+}
+
+.container.row {
+	margin: 0 auto;
+}
+
+.hide,
+.hidden {
+	display: none !important;
+}
+
+i.fa-phone {
+	transform: rotate(90deg);
+}
+
+.sitecontent {}
+
+.box {
+	padding: 3rem;
+	background-color: rgba(#000, 0.8);
+	margin-bottom: 3rem;
+
+	&-inner {
+		background-color: rgba(#fff, 0.15);
+		padding: 2rem;
+	}
+}
+
+section {
+	padding: 3rem 0;
+
+	&:first-child {
+		padding-top: 0;
+	}
+}
+
+.row>[class*="col-"] {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}

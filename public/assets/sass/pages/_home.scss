@@ -1,0 +1,88 @@
+.upcomingevent {
+
+    &__wrap {
+        position: relative;
+        margin-bottom: 15rem;
+    }
+
+    &__timer {
+        font-family: $font-title-3;
+        font-size: 3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 40vh;
+
+        .countdownTimer {
+            display: inline-block;
+        }
+    }
+
+    &__title {
+        font-family: $font-title-1;
+        font-size: 7rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: .25rem 0 2rem;
+    }
+
+    &__link {
+        font-family: $font-cont-1;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: $color-1;
+        text-transform: uppercase;
+    }
+}
+
+.homepageslider {
+    &__section {
+        padding: 3rem 0;
+
+        .owl-nav {
+            display: block !important;
+            position: absolute;
+            bottom: calc(100% + 1rem);
+            right: 0;
+
+            [class*="owl-"] {
+                font-size: 4rem !important;
+                margin: 0 1rem;
+                outline: none;
+
+                &:hover {
+                    color: $color-1;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    &__title {
+        padding: 0 5rem 0 1rem;
+
+        .heading {
+            text-transform: uppercase;
+        }
+    }
+}
+
+.albumslider,
+.relatedslider {
+    .owl-nav {
+        display: block !important;
+        position: absolute;
+        bottom: calc(100% + 1rem);
+        right: 0;
+
+        [class*="owl-"] {
+            font-size: 4rem !important;
+            margin: 0 1rem;
+            outline: none;
+
+            &:hover {
+                color: $color-1;
+                background-color: transparent;
+            }
+        }
+    }
+}

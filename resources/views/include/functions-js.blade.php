@@ -1,0 +1,10 @@
+<script src="{{asset('assets/js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.countdown.min.js')}}"></script>
+<script src="{{asset('assets/js/caleandar.min.js')}}"></script>
+<script src="{{asset('assets/js/select2.min.js')}}"></script>
+<script src="{{asset('assets/js/lightcase.js')}}"></script>
+<script src="{{asset('assets/js/soundcloud.player.api.js')}}"></script>
+<script src="{{asset('assets/js/sc-player.js')}}"></script>
+<script src="{{asset('assets/js/custom.js')}}"></script>

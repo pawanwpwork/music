@@ -1,0 +1,121 @@
+.imgtobg {
+    &-o {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+.square {
+    position: relative;
+    overflow: hidden;
+
+    img {
+        position: relative;
+        min-width: 100%;
+        width: auto;
+        max-width: 150%;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        object-fit: cover;
+    }
+}
+
+.img {
+    &-floatleft {
+        float: left;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    @include respond(tabland) {
+
+        &-floatleft,
+        &-floatright {
+            max-width: 50%;
+        }
+    }
+}
+
+/* remove float at certain viewports */
+.float {
+    @include respond(tabland) {
+        &-md {
+            float: none;
+        }
+    }
+
+    @include respond(tabport) {
+        &-sm {
+            float: none;
+        }
+    }
+
+    @include respond(phone) {
+        &-xs {
+            float: none;
+        }
+    }
+}
+
+.max-width {
+    &--100 {
+        max-width: 100px;
+    }
+
+    &--200 {
+        max-width: 200px;
+    }
+
+    &--300 {
+        max-width: 300px;
+    }
+
+    &--400 {
+        max-width: 400px;
+    }
+
+    &--500 {
+        max-width: 500px;
+    }
+
+    &--600 {
+        max-width: 600px;
+    }
+
+    &--700 {
+        max-width: 700px;
+    }
+
+    &--800 {
+        max-width: 800px;
+    }
+
+    &--900 {
+        max-width: 900px;
+    }
+
+    &--1000 {
+        max-width: 1000px;
+    }
+}
+
+.margin-auto {
+    @include margin-auto;
+}
+
+.message {
+    display: inline-block;
+    color: $color-1;
+    font-size: 1.6rem;
+    margin: 1rem 0;
+}
+
+.white-border {
+    position: relative;
+    border: 1px solid rgba(#fff, 0.3);
+    padding: 2rem;
+}

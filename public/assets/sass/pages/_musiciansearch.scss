@@ -1,0 +1,25 @@
+.musiciansearch {
+    &-form {
+        .form-check {
+            margin-bottom: 0;
+        }
+    }
+
+    &-category {
+        .row {
+            .formfield {
+                margin-bottom: 1rem;
+
+                &:nth-child(n+9) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+#categoryShow {
+    color: $color-1;
+    font-size: 1.7rem;
+    cursor: pointer;
+}

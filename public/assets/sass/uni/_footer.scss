@@ -1,0 +1,25 @@
+.footer {
+    font-family: $font-title-3;
+    font-size: 1.6rem;
+    text-align: center;
+    background-color: rgba(#000, 0.5);
+    margin-top: 5rem;
+    padding: 2rem 0;
+
+    .copyright,
+    .maple {
+        padding: .5rem 0;
+    }
+
+    .copyright {
+        strong {
+            white-space: nowrap;
+        }
+    }
+
+    .maple {
+        a {
+            color: $color-1;
+        }
+    }
+}

@@ -1,0 +1,114 @@
+.overlay {
+    background-image: -moz-linear-gradient(90deg, rgba(30, 0, 255, 0.8) 0%, rgba(236, 85, 56, 0.8) 100%);
+    background-image: -webkit-linear-gradient(90deg, rgba(30, 0, 255, 0.8) 0%, rgba(236, 85, 56, 0.8) 100%);
+    background-image: -ms-linear-gradient(90deg, rgba(30, 0, 255, 0.8) 0%, rgba(236, 85, 56, 0.8) 100%);
+
+    &__outer {
+        position: relative;
+        margin: 0 1rem;
+        max-width: 30rem;
+        overflow: hidden;
+
+        img {
+            @include absolcenter;
+            min-width: 100%;
+            width: auto !important;
+            max-width: 150%;
+            height: 100%;
+            object-fit: cover;
+            -webkit-transition: all 300ms ease-in-out 0s;
+            transition: all 300ms ease-in-out 0s;
+        }
+
+        @include respond(phone) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &__outer:hover img {
+        transform: scale(1.2) translate(-50%, -50%);
+    }
+
+    &,
+    &__info {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        transition: all .3s ease;
+    }
+
+    & {
+        top: 0;
+        height: 105%;
+        opacity: 0;
+    }
+
+    &__info {
+        bottom: 0;
+    }
+
+    &__outer:hover & {
+        opacity: 1;
+        height: 100%;
+    }
+
+    &__outer:hover &__info {
+        bottom: -2rem;
+        opacity: 0;
+    }
+
+    &__cont {
+        &-inner {
+            padding: 5rem 2rem 2rem;
+        }
+
+        h3 {
+            font-family: $font-title-2;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 0 1rem;
+        }
+
+        p {
+            font-family: $font-cont-1;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+        }
+    }
+
+    & &__cont {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    & &__cont-inner {
+        padding-bottom: 1.5rem;
+    }
+
+    &__info &__cont-inner {
+        background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .8) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, .8)));
+        background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .8) 100%);
+        background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .8) 100%);
+        background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .8) 100%);
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .8) 100%);
+    }
+}
+
+.social-icons {
+    a {
+        font-size: 1.5rem;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+    }
+}
