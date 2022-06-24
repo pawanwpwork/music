@@ -20,7 +20,7 @@ class ProductRepository implements ProductInterface
         if ($id) {
             $product               = $this->find($id);
             $request["updated_by"] = auth()->user()->id;
-            $request['alias']      = $event->alias;
+            // $request['alias']      = $product->alias;
             if($request['image'] != $product->image){
                 $oldPath    = storage_path('app/' . $product->image);
                 if (File::exists($oldPath)) {

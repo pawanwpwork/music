@@ -229,10 +229,10 @@ if (! function_exists('unique_slug'))
     function unique_slug($slugText,$tableName,$id =null) { 
         $slug = Str::slug( $slugText, '-');
         if($id){
-            $slugCount = count( DB::table($tableName)->where('slug',$slug)->get() );          
+            $slugCount = count( DB::table($tableName)->where('alias',$slug)->get() );          
             return ($slugCount > 1) ? "{$slug}-{$slugCount}" : $slug;   
         }else{
-            $slugCount = count(DB::table($tableName)->whereRaw("slug REGEXP '^{$slug}(-[0-9]*)?$'")->get()); 
+            $slugCount = count(DB::table($tableName)->whereRaw("alias REGEXP '^{$slug}(-[0-9]*)?$'")->get()); 
             return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;        
         }       
     }    

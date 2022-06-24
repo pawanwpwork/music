@@ -22,8 +22,8 @@ class ProductController extends Controller
         CategoryService $categoryService
     ) {
         $this->middleware('auth',['except' => ['storageLocationFileDisplay','storageLocationFileBackDisplay']]);
-        $this->productService    = $productService;
-        $this->categoryService   = $categoryService;
+        $this->productService           = $productService;
+        $this->categoryService           = $categoryService;
     }
 
     public function index(Request $request)
@@ -31,10 +31,15 @@ class ProductController extends Controller
     	// $products = $this->productService->getProductData();
 
         $filters['name']        =  $request->name ?? '';
+        
         $filters['model']       =  $request->model ?? '';
+
         $filters['quantity']    =  $request->quantity ?? '';
+
         $filters['sku']         =  $request->sku ?? '';
+        
         $filters['price']       =  $request->price ?? '';
+        
         $filters['status']      =  $request->status ?? '';
         
     	$products = $this->productService->findAll($filters);

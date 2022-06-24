@@ -203,6 +203,7 @@
 
     $(".datepicker").datepicker({
         autoClose: true,
+         format: "yyyy-mm-dd",
         viewStart: 2
     });
 

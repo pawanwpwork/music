@@ -267,7 +267,7 @@ else{
 }
 @endphp
 <div class="form-group">
-    <label class="col-sm-2 control-label">Categories</label>
+    <label class="col-sm-2 control-label">Categories*</label>
     <div class="col-sm-10">
         <select name="category_id[]" class="select2 form-control" multiple="multiple">
             @foreach($categories as $key => $category)
@@ -276,14 +276,14 @@ else{
         </select>
     </div>
 </div>
-
 @else
+
 <div class="form-group">
-    <label class="col-sm-2 control-label">Categories</label>
+    <label class="col-sm-2 control-label">Categories*</label>
     <div class="col-sm-10">
         <select name="category_id[]" class="select2 form-control" multiple="multiple">
             @foreach($categories as $key => $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{ $category->id }}"  @if( old('category_id') ) @foreach( old('category_id') as $pCat ) @if($pCat == $category->id)  selected @endif @endforeach @endif>{{ $category->name }}</option>
             @endforeach
         </select>
     </div>

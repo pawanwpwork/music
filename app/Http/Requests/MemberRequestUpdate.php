@@ -26,16 +26,16 @@ class MemberRequestUpdate extends FormRequest
        return [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email'      => ['required', Rule::unique('members')],
-            'password'   => 'required',
+            'email'      => 'required',
+            // 'password'   => 'required',
             'phone'      => 'required'
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'phone.required' => 'The Cell Field is required',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'phone.required' => 'The Cell Field is required',
+    //     ];
+    // }
 }

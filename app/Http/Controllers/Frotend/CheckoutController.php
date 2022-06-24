@@ -202,6 +202,7 @@ class CheckoutController extends Controller
                 {
 					$member = Member::find(Auth::guard('member')->user()->id);
 					$member->status = 1;
+                    $member->approved = 'Yes';
                     if(isset($orderP->member_type_id))
                     {
                         $member->membership_type_id = $orderP->member_type_id;

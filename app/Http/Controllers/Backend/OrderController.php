@@ -20,8 +20,8 @@ class OrderController extends Controller
 
 
     public function orderPending(){
-        // $orders = Order::where('payment_status','pending')->latest()->get();
-        $orders = Order::where('payment_status','completed')->latest()->get();
+        $orders = Order::where('payment_status','processing')->latest()->get();
+        // $orders = Order::where('payment_status','completed')->latest()->get();
         return view('backend.components.order.pending',compact('orders'));
     }
 

@@ -129,9 +129,16 @@ class CartController extends Controller
             }
         }
 
-         if( isset( $cartDelete->type ) && $cartDelete->type == 'book_band_dj')
+        if( isset( $cartDelete->type ) && $cartDelete->type == 'book_band_dj')
         {
              BookBandDj::find($cartDelete->product_id)->forceDelete();
+             if($cartDelete->delete()){
+                return redirect()->route('frontend.cart')->withMessage('Item '.$cartDelete->product_name.' has been removed!');       
+            }
+        }
+
+        if( isset( $cartDelete->type ) && $cartDelete->type == 'membership')
+        {
              if($cartDelete->delete()){
                 return redirect()->route('frontend.cart')->withMessage('Item '.$cartDelete->product_name.' has been removed!');       
             }

@@ -19,7 +19,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                   
-                    <h5>Classified Service <span style="font-size: 19px;">{{$service->product->name}} </span></h5>
+                    <h5>Classified Service <span style="font-size: 19px;">{{$service->product->name ?? ''}} </span></h5>
 
                     <div class="generate-invoice">
                          @if($service->status == 1)

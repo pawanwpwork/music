@@ -16,7 +16,7 @@ class ServiceOrderController extends Controller
     }
 
     public function serviceEnquiry(){
-        $services = ServiceOrder::with('member')->get();
+        $services = ServiceOrder::whereHas('product')->with('member')->get();
         return view('backend.components.order.service-order',compact('services'));
     }
 

@@ -49,11 +49,10 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'image' => 'required',
-            // 'meta_tag_title' => 'required',
             'model' => 'required',
             'price' => 'required',
             'quantity' => 'required',
-            // 'sort_order' => 'required'
+            'category_id' => 'required'
         ];
     }
 }
