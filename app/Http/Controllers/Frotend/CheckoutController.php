@@ -178,8 +178,6 @@ class CheckoutController extends Controller
 
             $order->payment_status   = 'cancel';
 
-            // $order->invoice_no       =  $order->id.time();
-            
             if($order->save()){
                 Cart::where('member_id',$memberData->id)->delete();
             }
@@ -213,43 +211,62 @@ class CheckoutController extends Controller
                 if($orderP->type == 'book_band_dj')
                 {
                     $book = BookBandDj::find($orderP->product_id);
-                    $book->order_status = 1;
-                    $book->save();
+                    if( $book )
+                    {
+                        $book->order_status = 1;
+                        $book->save();    
+                    }
+                    
                 }
 
                 if($orderP->type == 'event')
                 {
                     $book = Event::find($orderP->product_id);
-                    $book->order_status = 1;
-                    $book->save();
+                    if( $book )
+                    {
+                        $book->order_status = 1;
+                        $book->save();    
+                    }
                 }
 
                 if($orderP->type == 'classified_buy')
                 {
                     $book = Product::find($orderP->product_id);
-                    $book->order_status = 1;
-                    $book->save();
+                    if( $book )
+                    {
+                        $book->order_status = 1;
+                        $book->save();    
+                    }
                 }
 
                 if($orderP->type == 'classified_sell')
                 {
                     $book = Product::find($orderP->product_id);
-                    $book->order_status = 1;
-                    $book->save();
+                    if( $book )
+                    {
+                        $book->order_status = 1;
+                        $book->save();    
+                    }
                 }
 
                 if($orderP->type == 'cd_buy')
                 {
                     $book = Product::find($orderP->product_id);
-                    $book->order_status = 1;
-                    $book->save();
+                    if( $book )
+                    {
+                        $book->order_status = 1;
+                        $book->save();    
+                    }
                 }
 
                  if($orderP->type == 'cd_sell')
                 {
                     $book = Product::find($orderP->product_id);
-                    $book->order_status = 1;
-                    $book->save();
+                    if( $book )
+                    {
+                        $book->order_status = 1;
+                        $book->save();    
+                    }
                 }
 			}
 		}

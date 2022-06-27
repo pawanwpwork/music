@@ -33,7 +33,7 @@
                                 <th>Artist</th>
                                 <th>Song</th>
                                 <th>Lyrics</th>
-                                <th>Status</th>
+                                <!-- <th>Status</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -47,13 +47,13 @@
                                         <td>{{ $song->artist ?? '' }}</td>
                                         <td><a href="{{asset('song/'.$song->song)}}" target="_blank">Song File</a></td>
                                         <td><a href="{{asset('lyrics/'.$song->lyrics)}}" target="_blank">Lyrics File</a></td>
-                                        <td>
+                                      {{-- <td>
                                             @if($song->status == 1)
                                                 <span class="badge badge-primary">Published</span>
                                             @else
                                                 <span class="badge badge-danger"> Unpublished</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <a href="#delete_song" data-remote="{{route('admin.song.delete.confirm',$song->id)}}" data-toggle="modal"  class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                         </td>

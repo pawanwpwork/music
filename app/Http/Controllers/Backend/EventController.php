@@ -8,6 +8,7 @@ use App\Music\Services\Event\EventService;
 use App\Http\Requests\EventRequest;
 use File;
 use Response;
+use App\Models\Event;
 
 class EventController extends Controller
 {
@@ -15,10 +16,12 @@ class EventController extends Controller
     protected $categoryService;
 
     public function __construct(
-        EventService $eventService
+        EventService $eventService, 
+        Event $eventModel
     ) {
         $this->middleware('auth',['except' => ['storageLocationFileDisplay']]);
         $this->eventService           = $eventService;
+        $this->event                  = $eventModel;
     }
 
     public function index(Request $request)
@@ -35,7 +38,40 @@ class EventController extends Controller
         
         $filters['status']      =  $request->status ?? '';
         
-    	$events = $this->eventService->findAll($filters);
+
+        if(isset($filters) && count($filters)){
+
+            $results = $this->event->where('order_status',1)->when( array_filter($filters), function($query) use ($filters){
+            if(array_key_exists('name', $filters)){
+
+                $query->where('name', 'like','%' . $filters['name'] . '%');
+            }
+            if(array_key_exists('model', $filters)){
+                $query->where('model', 'like','%' . $filters['model'] . '%');
+            }
+            if(array_key_exists('price', $filters)){
+                $query->where('price', 'like','%' . $filters['price'] . '%');
+            }
+            if(array_key_exists('sku', $filters)){
+                $query->where('sku', 'like','%' . $filters['sku'] . '%');
+            }
+            if(array_key_exists('quantity', $filters)){
+                $query->where('quantity', 'like','%' . $filters['quantity'] . '%');
+            }
+            if(array_key_exists('status', $filters)){
+                $query->where('status', $filters['status']);
+            }
+
+            return $query;
+
+        })->latest()
+        ->get();
+        }
+        else{
+            $results = $this->event->latest()->get();
+        }
+
+    	$events = $results;
         
         return view('backend.components.event.list',compact('events'));
     }
@@ -47,8 +83,11 @@ class EventController extends Controller
 
     public function store(EventRequest $request)
     {
-        $response = $this->eventService->save($request->all());
-        
+
+        $request                 = $request->all();
+        $request['order_status'] = 1;
+        $response                = $this->eventService->save($request);
+
         if ($response) {
             return redirect()->route('admin.event.edit',$response->id)->withMessage('Successfully created Event.');
         } else {

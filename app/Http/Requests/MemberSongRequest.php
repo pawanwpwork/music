@@ -25,12 +25,12 @@ class MemberSongRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'label' => 'required',
-            'artist' => 'required',
-            'duration' => 'required',
-            'lyrics' => 'required|mimes:txt,docx,text',
-            'song' => 'required|mimes:audio/mpeg,mpga,mp3,wav,aac',
+            'title'           => 'required',
+            'label'           => 'required',
+            'artist'          => 'required',
+            'duration'        => 'required',
+            'lyrics'          => 'required|mimes:docx,text',
+            'song'            => 'required|mimes:audio/mpeg,mpga,mp3,wav,aac',
             'terms_condition' => 'required'
         ];
     }

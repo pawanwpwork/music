@@ -50,13 +50,58 @@
 @section('header-style')
 <link href="{{ asset('assets/backend/jasny-bootstrap/css/jasny-bootstrap.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/jquery-ui.min.css')}}">
 @stop
 @section('footer-scripts')
 <script type="text/javascript" src="{{ asset('assets/backend/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+<script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/js/select2.min.js')}}"></script>
 <script>
     $(document).ready(function() {
         $('.select2').select2();
     });
+
+
+     $("#frmEventStartDate").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: new Date(),
+        // maxDate: "+60D",
+        onSelect: function (selected) {
+            $("#frmEventEndDate").datepicker("option", "minDate", selected);
+            // calcDiff();
+        }
+    });
+
+    $("#frmEventEndDate").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: new Date((new Date()).getTime() + 86400000),
+        onSelect: function (selected) {
+            $("#frmEventStartDate").datepicker("option", "maxDate", selected);
+            $("#frmEndDate").datepicker("option", "maxDate", selected);
+            // calcDiff();
+        }
+    });
+
+    $("#frmStartDate").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: new Date(),
+        onSelect: function (selected) {
+            var maxdate = $('#frmEventEndDate').datepicker('getDate');
+            $("#frmEndDate").datepicker("option", "minDate", selected);
+            $("#frmEndDate").datepicker("option", "maxDate", maxdate);
+            calcDiff();
+        }
+    });
+
+    $("#frmEndDate").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: new Date((new Date()).getTime() + 86400000),
+        // maxDate: "+60D",
+        onSelect: function (selected) {
+            $("#frmStartDate").datepicker("option", "maxDate", selected);
+            // calcDiff();
+        }
+    });
+
 </script>
 @stop

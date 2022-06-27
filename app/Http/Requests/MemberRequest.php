@@ -24,11 +24,12 @@ class MemberRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|unique:members',
-            'password'   => 'required',
-            'phone'      => 'required'
+            'first_name'    => 'required',
+            'last_name'     => 'required',
+            'email'         => 'required|unique:members',
+            'password'      => 'required',
+            'phone'         => 'required',
+            'profile_image' => 'nullable|mimes:jpg,jpeg,JPG,JPEG,bmp,png,PNG'
         ];
     }
 

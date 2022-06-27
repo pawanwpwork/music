@@ -22,40 +22,63 @@ class ProductController extends Controller
         CategoryService $categoryService
     ) {
         $this->middleware('auth',['except' => ['storageLocationFileDisplay','storageLocationFileBackDisplay']]);
-        $this->productService           = $productService;
-        $this->categoryService           = $categoryService;
+        $this->productService    = $productService;
+        $this->categoryService   = $categoryService;
     }
 
     public function index(Request $request)
     {
-    	// $products = $this->productService->getProductData();
+        $filters = [];
+        
+        if( isset( $request->name ) )
+        {
+            $filters['name']        =  $request->name ?? '';    
+        }
 
-        $filters['name']        =  $request->name ?? '';
-        
-        $filters['model']       =  $request->model ?? '';
+        if( isset( $request->model ) )
+        {
+            $filters['model']        =  $request->model ?? '';    
+        }
 
-        $filters['quantity']    =  $request->quantity ?? '';
+        if( isset( $request->sku ) )
+        {
+            $filters['sku']        =  $request->sku ?? '';    
+        }
 
-        $filters['sku']         =  $request->sku ?? '';
+        if( isset( $request->price ) )
+        {
+            $filters['price']        =  $request->price ?? '';    
+        }
+
+        if( isset( $request->status ) )
+        {
+            $filters['status']        =  $request->status ?? '';    
+        }
+
+        if( isset( $request->category_id ) )
+        {
+            $filters['category_id']        =  $request->category_id ?? '';    
+        }
+
+
+    	$products               =  $this->productService->findAll($filters);
         
-        $filters['price']       =  $request->price ?? '';
-        
-        $filters['status']      =  $request->status ?? '';
-        
-    	$products = $this->productService->findAll($filters);
-        
-        return view('backend.components.product.list',compact('products'));
+        $categories             = $this->categoryService->getCategoryData();
+
+        return view('backend.components.product.list',compact('products','categories'));
     }
 
     public function create(){
-    	$products = $this->productService->getProductData();
+    	$products   = $this->productService->getProductData();
     	$categories = $this->categoryService->getCategoryData();
         return view('backend.components.product.create',compact('products', 'categories'));
     }
 
     public function store(ProductRequest $request)
     {
-        $response = $this->productService->save($request->all());
+        $request                 = $request->all();
+        $request['order_status'] = 1;
+        $response = $this->productService->save($request);
         
         if ($response) {
             return redirect()->route('admin.product.edit',$response->id)->withMessage('Successfully created Product!');

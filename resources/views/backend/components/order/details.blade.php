@@ -96,6 +96,7 @@
                               <td class="text-left">Product Name</td>
                               <td class="text-left">Product Model/Type</td>
                               <td class="text-right">Quantity</td>
+                              <td class="text-right">Category</td>
                               <td class="text-right">Price</td>
                               <td class="text-right">Total</td>
                              
@@ -111,6 +112,7 @@
                               <td class="text-left">{{$productDetail['product_name']}}</td>
                               <td class="text-left">{{$productDetail['model']}}</td>
                               <td class="text-right">{{$product->quantity}}</td>
+                              <td class="text-right">{{ str_replace( "_", " ", $product->type )}}</td>
                               <td class="text-right">${{$product->price}}</td>
                               <td class="text-right">${{$product->quantity * $product->price}}</td>
                               

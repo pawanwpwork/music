@@ -65,7 +65,7 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Time</label>
     <div class="col-sm-10">
-        <input type="time" name="time" class="form-control" placeholder="--:--" value="{{ old('time', (isset($event->time)) ? \Carbon\Carbon::parse($event->time)->format('h:i') : '')}}">
+        <input type="time" name="time" class="form-control" placeholder="--:--" value="{{ old('time', (isset($event->time)) ? $event->time : '')}}">
     </div>
 </div>
 <div class="form-group">
@@ -90,27 +90,27 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Event Start Date</label>
     <div class="col-sm-10">
-        <input name="event_start_date" type="date" class="form-control" value="{{ old('event_start_date', (isset($event->event_start_date)) ? \Carbon\Carbon::parse($event->event_start_date)->format('Y-m-d') : '')}}">
+        <input name="event_start_date" type="text" class="form-control" value="{{ old('event_start_date', (isset($event->event_start_date)) ? \Carbon\Carbon::parse($event->event_start_date)->format('Y-m-d') : '')}}" id="frmEventStartDate" autocomplete="off" readonly>
     </div>
 </div>
 
 <div class="form-group">
     <label class="col-sm-2 control-label">Event End Date</label>
     <div class="col-sm-10">
-        <input name="event_end_date" type="date" class="form-control" value="{{ old('event_end_date', (isset($event->event_end_date)) ? \Carbon\Carbon::parse($event->event_end_date)->format('Y-m-d') : '')}}">
+        <input name="event_end_date" type="text" class="form-control" value="{{ old('event_end_date', (isset($event->event_end_date)) ? \Carbon\Carbon::parse($event->event_end_date)->format('Y-m-d') : '')}}" id="frmEventEndDate" autocomplete="off" readonly>
     </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-2 control-label">Date Start</label>
+    <label class="col-sm-2 control-label">Advertisement Start Date</label>
     <div class="col-sm-10">
-        <input name="date_start" type="date" class="form-control" value="{{ old('date_start', (isset($event->date_start)) ? \Carbon\Carbon::parse($event->date_start)->format('Y-m-d') : '')}}">
+        <input name="date_start" type="text" class="form-control" value="{{ old('date_start', (isset($event->date_start)) ? \Carbon\Carbon::parse($event->date_start)->format('Y-m-d') : '')}}" id="frmStartDate" autocomplete="off" readonly>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Date End</label>
+    <label class="col-sm-2 control-label">Advertisement End Date</label>
     <div class="col-sm-10">
-        <input name="date_end" type="date" class="form-control" value="{{ old('date_end', (isset($event->date_end)) ? \Carbon\Carbon::parse($event->date_end)->format('Y-m-d') : '')}}">
+        <input name="date_end" type="text" class="form-control" value="{{ old('date_end', (isset($event->date_end)) ? \Carbon\Carbon::parse($event->date_end)->format('Y-m-d') : '')}}" id="frmEndDate" autocomplete="off" readonly>
     </div>
 </div>
 

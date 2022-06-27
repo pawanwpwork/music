@@ -127,6 +127,13 @@ class ProductRepository implements ProductInterface
             if(array_key_exists('quantity', $filters)){
                 $query->where('quantity', 'like','%' . $filters['quantity'] . '%');
             }
+
+             if(array_key_exists('category_id', $filters)){
+               $query->whereHas('category', function ($q) use ($filters) {
+                    $q->where('categories.id',$filters['category_id']);
+                });
+            }
+
             if(array_key_exists('status', $filters)){
                 $query->where('status', $filters['status']);
             }
