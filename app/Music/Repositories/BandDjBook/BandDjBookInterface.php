@@ -12,6 +12,8 @@ interface BandDjBookInterface
 
     public function delete($id);
 
+    public function cancelBooking($id);
+
     public function bankBandDjPostsave($request);
 }
 

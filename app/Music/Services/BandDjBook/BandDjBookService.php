@@ -90,4 +90,24 @@ class BandDjBookService
             return null;
         }
     }
+
+    public function cancelBooking($id)
+    {
+        try {
+
+            activity()->log(
+                sprintf(
+                    'Band/Dj Event Type Cancel successfully of Event Name: %s by user: %s',
+                    getNameByIdOfTable('book_band_dj', $id)->type,
+                    getUserNameById(auth()->user()->id)->first_name
+                )
+            );
+            $this->bandDjBookInterface->cancelBooking($id);
+            return true;
+        } catch (\Exception $e) {
+            activity()->withProperties(['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()])->log(sprintf('Unable to Cancel Event of id : %s by user : %s', $id, auth()->user()->id));
+
+            return null;
+        }
+    }
 }

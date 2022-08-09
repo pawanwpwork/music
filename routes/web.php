@@ -255,7 +255,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('band-dj/book/delete/{id}', [BandDjBookController::class, 'destroy'])->name('banddjbook.delete');
 
     Route::get('band-dj/book/confirm-delete/{id}', [BandDjBookController::class, 'getModalDelete'])->name('banddjbook.delete.confirm');
-    
+
+    Route::get('band-dj/book/{id}/cancel-modal', [BandDjBookController::class, 'cancelBookingModal'])->name('banddjbook.cancel.modal');
+
+    Route::get('band-dj/book/{id}/cancel', [BandDjBookController::class, 'cancelBooking'])->name('banddjbook.cancel');
+
+
     // Site Settings
     Route::get('site-setting/list', [SiteSettingController::class, 'index'])->name('site-setting.list');
 
@@ -320,9 +325,9 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('page/{id}/status', [PageController::class, 'statusChange'])->name('page.status');
 
     // Service Order
-     Route::get('service/enquiry', [ServiceOrderController::class, 'serviceEnquiry'])->name('service.inquiry');
-     Route::get('service/{id}/enquiry/detail', [ServiceOrderController::class, 'serviceEnquiryDetail'])->name('service.inquiry.detail');
-      Route::get('service/{id}/enquiry/status', [ServiceOrderController::class, 'serviceSatusUpdate'])->name('service.inquiry.status');
+    Route::get('service/enquiry', [ServiceOrderController::class, 'serviceEnquiry'])->name('service.inquiry');
+    Route::get('service/{id}/enquiry/detail', [ServiceOrderController::class, 'serviceEnquiryDetail'])->name('service.inquiry.detail');
+    Route::get('service/{id}/enquiry/status', [ServiceOrderController::class, 'serviceSatusUpdate'])->name('service.inquiry.status');
 });
 
 // Frontend Route

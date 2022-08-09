@@ -55,16 +55,17 @@
                                        @foreach($types as $type)
 
                                           
-                                             <input type="checkbox" name="event_type_id[]" value="{{$type->id}}"
+                                        <input type="checkbox" name="event_type_id[]" value="{{$type->id}}"
 
-                                              @if(isset($book->event_type) && count($book->event_type) > 0)
-                                                @foreach($book->event_type as $key => $event_t)
+                                          @if(isset($book->event_type) && count($book->event_type) > 0)
+                                            @foreach($book->event_type as $key => $event_t)
 
-                                                  {{$event_t->pivot->event_type_id == $type->id ? 'checked' : ''}}
+                                              {{$event_t->pivot->event_type_id == $type->id ? 'checked' : ''}}
 
-                                                @endforeach
-                                              @endif
-                                              > {{$type->name}}<br>
+                                            @endforeach
+                                          @endif
+                                          
+                                        > {{$type->name}}<br>
                                            
                                        @endforeach
                                    @endif 

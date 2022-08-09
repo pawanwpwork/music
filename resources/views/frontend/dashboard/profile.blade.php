@@ -113,6 +113,7 @@
                                                     <img src="{{route('frontend.member.instrument',$instrument->id)}}" alt="{{$instrument->description}}">
                                                 </a>
                                             </div>
+                                             <p style="color:#FFF;font-size:20px;">{{ $instrument->description }}</p>
                                         </div>
                                         @endforeach
                                         @else

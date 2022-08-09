@@ -2,13 +2,13 @@
 
 namespace App\Mail;
 
-use App\Models\ServiceOrder;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\BookBandDj;
 
-class OrderClassifiedServiceNotificationForAdmin extends Mailable
+class BandDjBookCancel extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,13 +17,12 @@ class OrderClassifiedServiceNotificationForAdmin extends Mailable
      *
      * @return void
      */
-
-    public $order;
-
-    public function __construct(ServiceOrder $order)
+    public $bandDjBook;
+    public function __construct(BookBandDj $bandDjBook)
     {
-        $this->order = $order;
+        $this->bandDjBook = $bandDjBook;
     }
+
 
     /**
      * Build the message.
@@ -32,6 +31,6 @@ class OrderClassifiedServiceNotificationForAdmin extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.order-classified-service-emails-admin');
+        return $this->view('emails.band-dj-book-cancel');
     }
 }

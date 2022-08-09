@@ -1,6 +1,6 @@
-<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" name="paypal_payment">
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal_payment">
   <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="sb-ejfe471068969@business.example.com">
+  <input type="hidden" name="business" value="advance-records1@hotmail.com">
   <input type="hidden" name="item_name" value="{{$order->id}}">
   <input type="hidden" name="currency_code" value="USD">
   <input type="hidden" name="amount" value="{{$order->total_amount}}">

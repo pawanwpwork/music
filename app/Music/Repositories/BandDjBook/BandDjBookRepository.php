@@ -74,7 +74,8 @@ class BandDjBookRepository implements BandDjBookInterface
  
     public function getBandDjBookData()
     {
-       $bandDjBook = $this->bandDjBook->with('event_type','age')->where('order_status',1)->latest()->get();
+       // $bandDjBook = $this->bandDjBook->with('event_type','age')->where('order_status',1)->latest()->get();
+        $bandDjBook = $this->bandDjBook->with('event_type','age')->latest()->get();
         return $bandDjBook;
     }
 
@@ -110,5 +111,15 @@ class BandDjBookRepository implements BandDjBookInterface
         }
 
         return $bandDjBook;
+    }
+
+
+    public function cancelBooking($id)
+    {
+        $bandDjBook         = $this->find($id);
+
+        $bandDjBook->order_status = 2;
+
+        return $bandDjBook->save();
     }
 }

@@ -2,7 +2,7 @@
     $upgradeOptions   = upgradeMemberOptions(); 
     $currentRouteName = \Request::route()->getName();
 @endphp
-@if( isset( $upgradeOptions ) && $currentRouteName !== 'frontend.member.profile.details')
+@if( isset( $upgradeOptions ) && count( $upgradeOptions ) > 0 && $currentRouteName !== 'frontend.member.profile.details')
 <div class="profile-upgrade">
     <button id="profileUpgradeButton"><i class="fa fa-edit"></i> Upgrade <i class="fa fa-caret-down"></i></button>
     <ul class="profile-upgrade-list">

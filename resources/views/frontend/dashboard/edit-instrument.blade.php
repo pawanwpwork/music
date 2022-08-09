@@ -30,7 +30,9 @@
                                                         
                                                         <img src="{{route('frontend.member.instrument',$instrument->id)}}"
                                                             alt="Video">
+
                                                     </div>
+                                                    <p style="color:#FFF;font-size:20px;">{{ $instrument->description }}</p>
                                                 </div>
                                             @endforeach
                                         
@@ -43,7 +45,7 @@
                                                     <div class="profile-img-edit--uploader formfield">
                                                         <label for="imgItemUpload"><i class="fa fa-camera"></i> Upload</label>
                                                         <input name="instrument" type="file" id="imgItemUpload">
-                                                        <input name="description" type="text" id="imgItemDesc" placeholder="Instrument Description">
+                                                        <input name="description" type="text" id="imgItemDesc" placeholder="Instrument Name">
                                                         <button type="submit">Submit</button>
                                                     </div>
                                                 </form>

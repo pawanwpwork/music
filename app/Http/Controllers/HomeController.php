@@ -506,16 +506,16 @@ class HomeController extends Controller
    
     if( isset($request->filter_min) && isset($request->filter_max) ){
 
-       $classifiedCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->whereBetween('price', [$request->filter_min, $request->filter_max])->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->get();
+       $classifiedCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->whereBetween('price', [$request->filter_min, $request->filter_max])->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->whereNull('deleted_at')->get();
 
-      $classifiedProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->whereBetween('price', [$request->filter_min, $request->filter_max])->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->skip($skipData)->take($perPage)->get(); 
+      $classifiedProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->whereBetween('price', [$request->filter_min, $request->filter_max])->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->whereNull('deleted_at')->skip($skipData)->take($perPage)->get(); 
     }
 
    else{
       
-      $classifiedCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->get();
+      $classifiedCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->whereNull('deleted_at')->get();
 
-      $classifiedProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->skip($skipData)->take($perPage)->get();
+      $classifiedProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereDate('products.date_end','>=',date('Y-m-d'))->where('products.status',1)->where('category_id', $category->id)->orderBy('id', 'desc')->skip($skipData)->take($perPage)->whereNull('deleted_at')->get();
    }
 
 

@@ -76,7 +76,8 @@
                                         </td>
                                         <td>
                                             <a href="{{route('admin.banddjbook.edit',$book->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                            <a href="#delete_book" data-remote="{{route('admin.banddjbook.delete.confirm',$book->id)}}" data-toggle="modal"  class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            <a href="#delete_banddjbook" data-remote="{{route('admin.banddjbook.delete.confirm',$book->id)}}" data-toggle="modal"  class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            <a href="#cancel_book" data-remote="{{route('admin.banddjbook.cancel.modal',$book->id)}}" data-toggle="modal" class="btn btn-warning">Cancel Booking</a>
                                         </td>
                                        
                                     </tr>
@@ -102,7 +103,14 @@
     </div>
 </div>
 @endsection
+
 <div class="modal fade" id="delete_banddjbook" tabindex="-1" role="dialog" aria-labelledby="delete_book" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+   </div>
+</div>
+
+<div class="modal fade" id="cancel_book" tabindex="-1" role="dialog" aria-labelledby="cancel_book" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content"></div>
    </div>
