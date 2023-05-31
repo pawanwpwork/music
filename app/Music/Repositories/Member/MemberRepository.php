@@ -103,6 +103,7 @@ class MemberRepository implements MemberInterface
 
     public function signup($request)
     {
+        $macAddr = exec('getmac');
         $request['password']        = bcrypt($request['password']);
         $profile_image              = imageUploadPost( isset($request['profile_image']) ? $request['profile_image'] : null, "profile");
         $request['profile_image']  = $profile_image;
@@ -110,9 +111,10 @@ class MemberRepository implements MemberInterface
         $request['alias']          = unique_slug($slugText,'members');
         $request['dob']            = databaseDateFormat($request['dob']);
         $request['status']         = 0;
-        
+        $request['ip_address']     = \Request::ip();
+        $request['mac_address']    = $macAdd ?? null;
         $member                    = $this->member->create($request);
-        // dd($member);
+    
         if($member->membership_type_id == 1){
             $memberUpdate = $this->member->find($member->id);
             $memberUpdate->update(['status'=>1]);

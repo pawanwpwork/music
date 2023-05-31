@@ -134,11 +134,11 @@ class ProductRepository implements ProductInterface
                 });
             }
 
-            if(array_key_exists('status', $filters)){
-                $query->where('status', $filters['status']);
-            }
+            // if(array_key_exists('status', $filters)){
+            //     $query->where('status', $filters['status']);
+            // }
             return $query;
-        })->get();
+        })->paginate(10);
 
         return $results;
     }

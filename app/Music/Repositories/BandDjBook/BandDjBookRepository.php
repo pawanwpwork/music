@@ -75,7 +75,7 @@ class BandDjBookRepository implements BandDjBookInterface
     public function getBandDjBookData()
     {
        // $bandDjBook = $this->bandDjBook->with('event_type','age')->where('order_status',1)->latest()->get();
-        $bandDjBook = $this->bandDjBook->with('event_type','age')->latest()->get();
+        $bandDjBook = $this->bandDjBook->with('event_type','age')->latest()->paginate(10);
         return $bandDjBook;
     }
 

@@ -21,12 +21,13 @@
                 @enderror
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" placeholder="Password" name="password" id="exampleInputPassword1">
                 @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+                 <span  class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
              @if (Route::has('password.request'))
@@ -36,4 +37,14 @@
         <p class="m-t"> <small>Copyright &copy; All Music All Artists 2019</small> </p>
     </div>
 </div>
+<script>
+    function togglePasswordType() {
+        var x = document.getElementById("exampleInputPassword1");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection

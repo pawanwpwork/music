@@ -62,7 +62,7 @@ class ProductController extends Controller
 
 
     	$products               =  $this->productService->findAll($filters);
-        
+        // dd($products);
         $categories             = $this->categoryService->getCategoryData();
 
         return view('backend.components.product.list',compact('products','categories'));

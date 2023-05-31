@@ -5,7 +5,15 @@
 <div class="upcomingevent__wrap">
     <div class="container">
         <div class="upcomingevent">
-          
+           <!--  <div class="upcomingevent__timer">
+                <span>Only</span>
+                <div class="countdownTimer">
+                    <span class="countdownTimerYear">2022</span>
+                    <span class="countdownTimerMonth">09</span>
+                    <span class="countdownTimerDay">30</span>
+                </div>
+                <span>Left</span>
+            </div> -->
             @php $siteSetting = siteSetting(); @endphp
             <h2 class="upcomingevent__title">{{ (isset($siteSetting->home_slider_title) ? ($siteSetting->home_slider_title) : 'WELCOME TO ALL MUSIC ARTIST WEB SITE') }}</h2>
             <h5 class="upcomingevent__subttitle">{{ (isset($siteSetting->home_slider_subtitle) ? ($siteSetting->home_slider_subtitle) : 'Look out for our special offers.') }}</h5>

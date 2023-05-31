@@ -46,11 +46,13 @@
                             {{ $errors->first('password') }}
                         </span>
                     @endif
+                     <span class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>
                 </div>
 
                 <div class="formfield">
                     <label for="password_confirmation">Re-type Password(*)</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" value="" class="form-control">
+                     <span  class="show-password1" onClick="togglePasswordType1();"><i class="fa fa-eye"></i></span>
                 </div>
 
                 <div class="formfield">
@@ -198,7 +200,24 @@
 @endsection
 @section('footer-js')
 <script src="{{asset('assets/datepicker/datepicker.min.js')}}"></script>
-
+<script>
+    function togglePasswordType() {
+        var x = document.getElementById("frmPassword");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+     function togglePasswordType1() {
+        var x = document.getElementById("password_confirmation");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 <script type="text/javascript">
 
     $(".datepicker").datepicker({

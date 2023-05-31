@@ -14,7 +14,7 @@ class Product extends Model
 
 //   protected $guarded = [];
 
-    protected $fillable = ['member_id','add_user_type','name','alias','description','meta_tag_title','meta_tag_description','meta_tag_keyword','product_tag','model','sku','locations','price','quantity',
+protected $fillable = ['member_id','add_user_type','name','alias','description','meta_tag_title','meta_tag_description','meta_tag_keyword','product_tag','model','sku','locations','price','quantity',
                         'subtract_stock','out_of_stock','date_available','date_end','length','width','height','length_class','weight','weight_unit','status','sort_order','manufacturer','categories','downloads','related_products','image','back_image','total_days',
                         'per_day_rate','sub_total','created_at','updated_at','deleted_at','updated_by','created_by','is_featured','artist','weight_limit','category_ids'];
 

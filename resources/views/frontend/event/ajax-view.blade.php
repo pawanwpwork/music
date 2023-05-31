@@ -1,4 +1,3 @@
-
 @if(isset($upcomingEvents) && count($upcomingEvents) > 0)
     @foreach($upcomingEvents as $upcomingEvent)
 
@@ -24,7 +23,7 @@
                                 <strong class="eventlist__cont-heading">Location: </strong>
                                 <span class="eventlist__cont-info">{{ $upcomingEvent->location }}</span>
                             </li>
-                           @if( isset( $upcomingEvent->event_start_date ) )
+                            @if( isset( $upcomingEvent->event_start_date ) )
                             <li>
                                 <strong class="eventlist__cont-heading">Start Date: </strong>
                                 <span class="eventlist__cont-info">{{ $upcomingEvent->event_start_date }}</span>

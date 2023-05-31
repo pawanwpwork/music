@@ -125,15 +125,15 @@ class HomeController extends Controller
 
       if( isset($filters['from_date']) && isset($filters['to_date']))
       {
-         $upcomingEvents = DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','approved')->take(10)->orderby('event_end_date','ASC')->skip($skipData)->take($perPage)->get();
+         $upcomingEvents = DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','!=','pending')->take(10)->orderby('event_end_date','ASC')->skip($skipData)->take($perPage)->get();
       
-         $totalEvent  = count( DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','approved')->take(10)->orderby('event_end_date','ASC')->get() );
+         $totalEvent  = count( DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','!=','pending')->take(10)->orderby('event_end_date','ASC')->get() );
        }
        else
        {
-         $upcomingEvents = DB::table('events')->whereDate('date_end','>=',date('Y-m-d'))->whereNull('deleted_at')->where('status','approved')->take(10)->orderby('event_end_date','ASC')->skip($skipData)->take($perPage)->get();
+         $upcomingEvents = DB::table('events')->whereDate('date_end','>=',date('Y-m-d'))->whereNull('deleted_at')->where('status','!=','pending')->take(10)->orderby('event_end_date','ASC')->skip($skipData)->take($perPage)->get();
       
-         $totalEvent              = count( DB::table('events')->whereDate('date_end','>=',date('Y-m-d'))->whereNull('deleted_at')->where('status','approved')->take(10)->orderby('event_end_date','ASC')->get() ); 
+         $totalEvent              = count( DB::table('events')->whereDate('date_end','>=',date('Y-m-d'))->whereNull('deleted_at')->where('status','!=','pending')->take(10)->orderby('event_end_date','ASC')->get() ); 
        }  
      
 

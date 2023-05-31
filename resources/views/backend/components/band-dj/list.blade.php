@@ -91,7 +91,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="5">
-                                    <ul class="pagination pull-right"></ul>
+                                    <ul class="pagination pull-right">{!! $books->links() !!}</ul>
                                 </td>
                             </tr>
                         </tfoot>

@@ -65,10 +65,10 @@ class EventController extends Controller
             return $query;
 
         })->latest()
-        ->get();
+        ->paginate(10);
         }
         else{
-            $results = $this->event->latest()->get();
+            $results = $this->event->latest()->paginate(10);
         }
 
     	$events = $results;

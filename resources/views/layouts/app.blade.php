@@ -25,7 +25,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.png')}}" />
     <!-- Icon -->
     <style type="text/css">
-.pagination .active a {
+        .pagination .active a {
      color: #FFF;
      background-color: transparent;
      font-weight: 600;
@@ -78,7 +78,8 @@
 }
  
     </style>
-    
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9049772050077898"
+     crossorigin="anonymous"></script>
 </head>
 
 <body class="homepage">

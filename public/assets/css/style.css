@@ -3315,3 +3315,24 @@ label.terms-checkbox{
 .eventdetail__header img{
   width: 100%;
 }
+
+.event-cancel-status{
+  z-index: 9999;
+  color: #FFF;
+  position: absolute;
+  font-size: 15px;
+  left: 15px;
+  font-weight: bolder;
+  background: #EC5538;
+  padding: 2px 15px;
+}
+
+.show-password{
+  position: absolute;margin-top: -29px;padding-left: 53%;color: #000;cursor: pointer;
+  display: block;
+}
+
+.show-password1{
+ position: absolute;margin-top: -29px;padding-left: 53%;color: #FFF;cursor: pointer;
+ display: block;
+}

@@ -108,7 +108,9 @@
                         <tfoot>
                             <tr>
                                 <td colspan="5">
-                                    <ul class="pagination pull-right"></ul>
+                                    <ul class="pagination pull-right">
+                                        {!! $products->links() !!}
+                                    </ul>
                                 </td>
                             </tr>
                         </tfoot>

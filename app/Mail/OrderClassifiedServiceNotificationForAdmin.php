@@ -32,6 +32,6 @@ class OrderClassifiedServiceNotificationForAdmin extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.order-classified-service-emails-admin');
+         return $this->view('emails.order-classified-service-emails-admin');
     }
 }

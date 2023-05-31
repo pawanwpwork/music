@@ -22,14 +22,15 @@
                             @endif
                         </div>
                         
-                        <div class="formfield">
+                       <div class="formfield">
                             <label for="loginPassword">Password</label>
-                            <input type="password" name="password" placeholder="Password" class="form-control" value="{{old('password')}}" autocomplete="off">
+                            <input type="password" name="password" placeholder="Password" class="form-control" value="{{old('password')}}" autocomplete="off" id="exampleInputPassword1">
                             @if($errors->has('password'))
                                 <span class="error-message">
                                     {{ $errors->first('password') }}
                                 </span>
                             @endif
+                            <span  class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>
                         </div>
                        
                         <div class="checkbox">								
@@ -48,4 +49,14 @@
         </div>
     </div>
 </div>
+<script>
+    function togglePasswordType() {
+        var x = document.getElementById("exampleInputPassword1");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection
