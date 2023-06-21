@@ -33,7 +33,8 @@
             <li>
                 <a href="{{route('admin.dashboard')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <li class="{!! (Request::is(['admin/category*', 'admin/product*', 'admin/song*', 'admin/review*'])? 'active' : '') !!}">
+            
+            <li class="{!! (Request::is(['admin/category*', 'admin/song*', 'admin/review*'])? 'active' : '') !!}">
                 <a href="#"><i class="fa fa-tags fw"></i> 
                     <span class="nav-label">Catalog</span>
                     <span class="fa arrow"></span>
@@ -42,14 +43,59 @@
                     <li>
                         <a href="{{route('admin.category.list')}}" class="{!! (Request::is('admin/category*')? 'active' : '') !!}"><i class="fa fa-angle-double-right"></i> <span class="nav-label">Categories</span></a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin.product.list') }}" class="{!! (Request::is('admin/product/list')? 'active' : '') !!}"><i class="fa fa-angle-double-right"></i> <span class="nav-label">Products</span></a>
-                    </li>
+                   
                     <li>
                         <a href="{{ route('admin.song.list') }}" class="{!! (Request::is('admin/song/list')? 'active' : '') !!}"><i class="fa fa-angle-double-right"></i> <span class="nav-label">Songs</span></a>
                     </li>
                     <li>
                         <a href="{{ route('admin.review.list') }}" class="{!! (Request::is('admin/review/list')? 'active' : '') !!}"><i class="fa fa-angle-double-right"></i> <span class="nav-label">Reviews</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="{!! (Request::is(['admin/product*'])? 'active' : '') !!}">
+                <a href="#"><i class="fa fa-tags fw"></i> 
+                    <span class="nav-label">Classified</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=6">
+                            <i class="fa fa-angle-double-right"></i> 
+                            <span class="nav-label">Classified Equipment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=7">
+                            <i class="fa fa-angle-double-right"></i> 
+                            <span class="nav-label">Classified Misc</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=8">
+                            <i class="fa fa-angle-double-right"></i> 
+                            <span class="nav-label">Classified Services</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="{!! (Request::is(['admin/product*'])? 'active' : '') !!}">
+                <a href="#"><i class="fa fa-tags fw"></i><span class="nav-label">CD</span><span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=1"><i class="fa fa-angle-double-right"></i> <span class="nav-label">CD Store</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=2"><i class="fa fa-angle-double-right"></i> <span class="nav-label">CD Equipment</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=3"><i class="fa fa-angle-double-right"></i><span class="nav-label">CD Misc</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.product.list') }}?category_id=4"><i class="fa fa-angle-double-right"></i><span class="nav-label">CD Services</span>
+                        </a>
                     </li>
                 </ul>
             </li>
