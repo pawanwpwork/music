@@ -41,7 +41,7 @@
                             @if(isset($songs) && count($songs) > 0)
                                 @foreach($songs as $song)
                                     <tr>
-                                        <td>{{$song->member->first_name}} {{$song->member->last_name}}</td>
+                                        <td>{{$song->member->first_name ?? ''}} {{$song->member->last_name ?? ''}}</td>
                                         <td>{{$song->title ?? ''}}</td>
                                         <td>{{$song->label ?? ''}}</td>
                                         <td>{{ $song->artist ?? '' }}</td>

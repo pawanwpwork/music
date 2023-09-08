@@ -24,6 +24,7 @@ use App\Music\Services\Product\ProductService;
 use Auth;
 use Mail;
 
+
 class CheckoutController extends Controller
 {
      protected $productService;
@@ -152,7 +153,7 @@ class CheckoutController extends Controller
     		$this->orderProductTypeWiseUpdate($order);
             
             // Email send for admin
-            Mail::to('mcjohnsonenterprises@gmail.com')->send(new OrderNotificationForAdmin($order)); 
+            Mail::to('allmusicallartist@outlook.com')->send(new OrderNotificationForAdmin($order)); 
 
             // Email Send For customer
             Mail::to($memberData->email)->send(new OrderNotificationForCustomer($order)); 
@@ -337,7 +338,7 @@ class CheckoutController extends Controller
                     DB::commit();
                     
                      // Email send for admin
-                    Mail::to('mcjohnsonenterprises@gmail.com')->send(new OrderClassifiedServiceNotificationForAdmin($order));
+                    Mail::to('allmusicallartist1@gmail.com')->send(new OrderClassifiedServiceNotificationForAdmin($order));
 
                    // Mail::to('pawan@mapleleapgroups.com')->send(new OrderClassifiedServiceNotificationForAdmin($order)); 
 
@@ -378,7 +379,7 @@ class CheckoutController extends Controller
         if($order->save())
         {
               // Email send for admin
-            Mail::to('mcjohnsonenterprises@gmail.com')->send(new OrderClassifiedServiceNotificationForAdmin($order)); 
+            Mail::to('allmusicallartist@outlook.com')->send(new OrderClassifiedServiceNotificationForAdmin($order)); 
 
             // Email Send For customer
             Mail::to($memberData->email)->send(new OrderClassifiedServiceNotificationForCustomer($order)); 

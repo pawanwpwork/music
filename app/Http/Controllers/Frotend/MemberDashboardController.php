@@ -382,6 +382,12 @@ class MemberDashboardController extends Controller
             return redirect()->route('frontend.song.form')->withMessage('Successfully Post Song and wait for approving!');
           }
 
+          // $response        = $this->memberSongService->save($request->all());
+          // dump($response);
+          // exit;
+          // if ($response) {
+          //   return redirect()->route('frontend.song.form')->withMessage('Successfully Post Song and wait for approving!');
+          // }
       } catch (UserNotFoundException $e) {
         return redirect()->back()->withErrors('Unable to to update Member Song please try again.')->withInput($request->all());
       }

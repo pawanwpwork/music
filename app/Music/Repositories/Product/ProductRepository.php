@@ -138,7 +138,7 @@ class ProductRepository implements ProductInterface
             //     $query->where('status', $filters['status']);
             // }
             return $query;
-        })->paginate(10);
+        })->paginate(5);
 
         return $results;
     }

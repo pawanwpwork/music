@@ -17,7 +17,10 @@ class ProductController extends Controller
     protected $productService;
     protected $categoryService;
 
-    public function __construct( ProductService $productService, CategoryService $categoryService) {
+    public function __construct(
+        ProductService $productService, 
+        CategoryService $categoryService
+    ) {
         $this->middleware('auth',['except' => ['storageLocationFileDisplay','storageLocationFileBackDisplay']]);
         $this->productService    = $productService;
         $this->categoryService   = $categoryService;
