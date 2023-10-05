@@ -24,7 +24,6 @@ use App\Music\Services\Product\ProductService;
 use Auth;
 use Mail;
 
-
 class CheckoutController extends Controller
 {
      protected $productService;
@@ -338,7 +337,7 @@ class CheckoutController extends Controller
                     DB::commit();
                     
                      // Email send for admin
-                    Mail::to('allmusicallartist1@gmail.com')->send(new OrderClassifiedServiceNotificationForAdmin($order));
+                    Mail::to('allmusicallartist@outlook.com')->send(new OrderClassifiedServiceNotificationForAdmin($order));
 
                    // Mail::to('pawan@mapleleapgroups.com')->send(new OrderClassifiedServiceNotificationForAdmin($order)); 
 
