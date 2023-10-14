@@ -139,7 +139,7 @@ class MemberRepository implements MemberInterface
     {
         $member                = $this->find($id);
         $request["updated_by"] = authGuardData('member')->id;
-        $request["dob"]        = databaseDateFormat($request["dob"]);
+        $request["dob"]        = $request["dob"];
         return $member->update($request);
     }
 

@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="formfield col-12">
                                         <label for="dob">DOB</label>
-                                        <input type="text" name="dob" id="dob" value="{{date('d/m/Y',strtotime($member->dob))}}" autocomplete="off">
+                                        <input type="text" name="dob" id="dob" value="{{isset($member->dob) ? $member->dob : '' }}" autocomplete="off" readonly>
                                     </div>
                                     <div class="formfield col-12">
                                         <label for="country">Country</label>
@@ -97,7 +97,7 @@
 @endsection
 
 @section('head-css')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="{{asset('assets/datepicker/datepicker.min.css')}}">
 <style type="text/css">
     #appendUploadImage img.active{
         border: 2px solid #d01212;
@@ -106,13 +106,13 @@
 @endsection
 
 @section('footer-js')
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="{{asset('assets/datepicker/datepicker.min.js')}}"></script>
 @include('frontend.dashboard.scripts.upload-profile-image-js')
-
- <script>
-  $( function() {
-    $( "#dob" ).datepicker();
-  } );
-  </script>
+<script>
+$("#dob").datepicker({
+    autoClose: true,
+    format: "yyyy-mm-dd",
+    viewStart: 2
+});
+</script>
 @endsection

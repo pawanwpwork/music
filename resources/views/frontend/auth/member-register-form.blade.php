@@ -188,13 +188,6 @@
     }
 </script>
 <script type="text/javascript">
-
-    $(".datepicker").datepicker({
-        autoClose: true,
-         format: "yyyy-mm-dd",
-        viewStart: 2
-    });
-
     function add_music_cat(element){
         var route = "{{route('create.music-category.from-register-form')}}";
         var new_category = $(element).val();
@@ -213,9 +206,6 @@
              }
         });
     }
-
-
-    
 </script>
 
 @endsection
