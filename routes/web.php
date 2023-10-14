@@ -91,6 +91,8 @@ Route::get('product/{alias}/classified/category', [HomeController::class, 'produ
 
 Route::get('music/login', [MemberLoginController::class, 'login'])->name('music.login');
 
+Route::get('music/otp/verify/{phoneNumber}', [MemberRegisterController::class, 'phoneOTPVerify'])->name('music.otp.verify');
+
 Route::post('music/login', [MemberLoginController::class, 'loginMember'])->name('music.login');
 
 Route::get('music/logout', [MemberLoginController::class, 'logout'])->name('music.logout');
@@ -389,7 +391,14 @@ Route::get('account/order/{orderId}/details', [MemberDashboardController::class,
 
 Route::post('member/send/email/verify/link', [MemberLoginController::class, 'sendMemberEmailVerifyLink'])->name('frontend.member.send.email.verify.link');
 
+Route::post('member/resend/phone/verify/code', [MemberLoginController::class, 'reSendMemberPhoneVerifyCode'])->name('frontend.member.resend.phone.verify.code');
+
+Route::post('member/phone/verify/{phone}', [MemberLoginController::class, 'phoneVerification'])->name('frontend.member.phone.verify');
+
+
 Route::get('member/send/email/verify/link/view', [MemberLoginController::class, 'sendEmailVerifyView'])->name('frontend.member.email.verify.view');
+
+Route::get('member/reverify/phone', [MemberLoginController::class, 'reVerifyPhone'])->name('frontend.member.reverify.phone');
 
 
 Route::get('member/{email}/email/verify', [MemberLoginController::class, 'updateMemeberVerify'])->name('frontend.member.email.verify.status');

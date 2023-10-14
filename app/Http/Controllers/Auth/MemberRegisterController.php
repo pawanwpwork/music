@@ -14,11 +14,13 @@ use App\Http\Requests\MusicCategoryRequest;
 use App\Mail\ResendVerificationLink;
 use Carbon\Carbon;
 use App\Models\VerifyEmail;
+use App\Models\VerifyPhone;
 use App\Models\Member;
 use App\Models\Cart;
 use App\Models\MembershipType;
 use App\Models\MembershipSettings;
 use Illuminate\Support\Facades\DB;
+use Twilio\Rest\Client;
 use File;
 use Response;
 use Auth;
@@ -66,41 +68,33 @@ class MemberRegisterController extends Controller
         try {
             DB::beginTransaction();
             $response = $this->memberService->signup($request->all());
-
             if($response) {
-
-                $member = Member::where('email',$response->email)->first();
-
-                $sendVerifyLink = Mail::to($member->email)->send(new ResendVerificationLink($member)); 
-      
-                $verifyEmailTable = VerifyEmail::where('email',$member->email)->first();
-
-                $currentDateTime = Carbon::now();
-
-                $newDateTime = $currentDateTime->addHours(24);
-                  
-
-                if(isset($verifyEmailTable)){
-                  $verifyEmailTable->email = $member->email;
-                  $verifyEmailTable->count = $verifyEmailTable->count + 1;
-                  $verifyEmailTable->expired_at = $newDateTime;
-                  $verifyEmailTable->save();
+                $member             = Member::where('phone',$response->phone)->first();
+                $sendOTP            = $this->sendVerifcationOTP( $member );
+                // $sendVerifyLink  = Mail::to($member->email)->send(new ResendVerificationLink($member)); 
+                $verifyPhoneTable   = VerifyPhone::where('phone',$member->phone)->first();
+                $currentDateTime    = Carbon::now();
+                $newDateTime        = $currentDateTime->addMinutes(15);
+                if(isset($verifyPhoneTable)){
+                  $verifyPhoneTable->phone      = $member->phone;
+                  $verifyPhoneTable->count      = $verifyPhoneTable->count + 1;
+                  $verifyPhoneTable->code       = $member->verification_code;
+                  $verifyPhoneTable->expired_at = $newDateTime;
+                  $verifyPhoneTable->save();
                 }else{
-                  $newVerifyEmail =  new VerifyEmail();
-                  $newVerifyEmail->email = $member->email;
-                  $newVerifyEmail->count = 1;
-                  $newVerifyEmail->expired_at = $newDateTime;
-                  $newVerifyEmail->save();
+                  $newVerifyPhone             =  new VerifyPhone();
+                  $newVerifyPhone->phone      = $member->phone;
+                  $newVerifyPhone->code     = $member->verification_code;
+                  $newVerifyPhone->count      = 1;
+                  $newVerifyPhone->expired_at = $newDateTime;
+                  $newVerifyPhone->save();
                 }
 
                 if($member->status == 0){
                     $this->addToCartForMember($member);
                 }
-                 DB::commit();
-                return redirect()->route('music.login')->withMessage('Successfully Register. Verification Link Has been sent successfully in your email address for email verification');
-
-
-                return redirect()->route('music.login')->withMessage('Successfully Register');
+                DB::commit();
+                return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile');
             }
 
         } catch (UserNotFoundException $e) {
@@ -109,6 +103,26 @@ class MemberRegisterController extends Controller
 
         }  
 
+    }
+
+    public function sendVerifcationOTP( $member ){
+        $token         = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid    = getenv("TWILIO_SID");
+        $twilio_number = '+12295525945';
+        $twilio        = new Client($twilio_sid, $token);
+
+        $twilio->messages->create(
+            // Where to send a text message (your cell phone?)
+            '+9779849224290',
+            array(
+                'from' => $twilio_number,
+                'body' => 'Your verification code is '.$member->verification_code
+            )
+        );
+    }
+
+    public function phoneOTPVerify( $phoneNumber ){
+        return view('frontend.auth.member-phone-verification-form',compact('phoneNumber'));
     }
 
     public function addToCartForMember($data){

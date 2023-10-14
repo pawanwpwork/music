@@ -55,7 +55,7 @@
                      <span  class="show-password1" onClick="togglePasswordType1();"><i class="fa fa-eye"></i></span>
                 </div>
 
-                <div class="formfield">
+               <!--  <div class="formfield">
                     <label for="frmAddress">Address</label>
                     <input type="text" name="address" id="frmAddress" value="{{old('address')}}" class="form-control">
                 </div>
@@ -74,8 +74,20 @@
                 <div class="formfield">
                     <label for="frmZipcode">Zipcode</label>
                     <input type="text" name="zipcode" id="frmZipcode" value="{{old('zipcode')}}" class="form-control">
+                </div> -->
+                <div class="formfield">
+                    <label for="frmZipcode">Country Code</label>
+                    <select 
+                        class="form-control" 
+                        id="frmCountryCode" 
+                        name="country_code"
+                      >
+                        <option value="+977">Nepal</option>
+                        <option value="+1">Canada +1</option>
+                        <option value="+44">United Kingdom +44</option>
+                        <option value="+1">United States +1</option>
+                    </select>
                 </div>
-               
                 <div class="formfield">
                     <label for="frmCell">Cell(*)</label>
                     <input type="phone" name="phone" id="phone" value="{{old('phone')}}" class="form-control">
@@ -85,11 +97,11 @@
                         </span>
                     @endif
                 </div>
-                
+               <!--  
                 <div class="formfield">
                     <label for="frmDob">DOB</label>
                     <input type="text" name="dob" value="{{old('dob')}}" class="form-control datepicker" autocomplete="off">
-                </div>
+                </div> -->
                 <div class="formfield">
                     <label for="music_genre">Music Genre</label>
                     <select onchange="select_genre(this);" name="music_genre_id" id="frmMusicGenre" class="form-control">
@@ -151,27 +163,8 @@
                     </div>
                     <div class="new_category_container"></div>
                 </div>
-                {{--   
-                <div class="formfield formfield-addcat" id="addCategory" @if($type != 'musician') style="display:none" @endif>
-                    <input name="name" type="text" id="new_category" placeholder="Category name" class="form-control">
-                    <input type="button" id="add_music_cats" value="Add Category" onclick="add_music_cat('#new_category');" class="form-control">
-                </div>
-                --}}
-                
-                <div class="formfield formfield-upload" id="uploadImg">
-
-                    <label style="margin-right:30px;">Profile Picture</label>
-
-                    <input type="file" name="profile_image" id="profile_image">
-                    			
-                    <button type="button" id="button-profile" data-loading-text="Loading..." class="btn btn-default" style="margin-top:8px;"><i class="fa fa-upload" style="font-size:2em;"></i> </button>
-
-                    <button type="button" id="button-clear" data-loading-text="Loading..." class="btn btn-danger btn-bock" style="margin-top:8px;"><i class="fa fa-eraser" style="font-size:2em;"></i> </button>
-
-                    <input type="hidden" id="dpevent" name="profile_image" value="" class="form-control">
-                    
-                </div>
-
+             
+           
                 <div class="formfield">
                     @php $term = App\Models\Page::find(2);@endphp
                     <div class="music-terms-and-conditions" style="max-height: 200px; overflow: auto;">
