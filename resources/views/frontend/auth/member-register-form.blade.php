@@ -54,27 +54,7 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" value="" class="form-control">
                      <span  class="show-password1" onClick="togglePasswordType1();"><i class="fa fa-eye"></i></span>
                 </div>
-
-               <!--  <div class="formfield">
-                    <label for="frmAddress">Address</label>
-                    <input type="text" name="address" id="frmAddress" value="{{old('address')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmCity">City</label>
-                    <input type="text" name="city" id="frmCity" value="{{old('city')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmState">State</label>
-                    <input type="text" name="state" id="frmState" value="{{old('state')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmCountry">Country</label>
-                    <input type="text" name="country" id="frmCountry" value="{{old('country')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmZipcode">Zipcode</label>
-                    <input type="text" name="zipcode" id="frmZipcode" value="{{old('zipcode')}}" class="form-control">
-                </div> -->
+                
                 <div class="formfield">
                     <label for="frmZipcode">Country Code</label>
                     <select 
