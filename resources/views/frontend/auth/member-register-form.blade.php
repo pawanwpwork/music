@@ -54,7 +54,7 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" value="" class="form-control">
                      <span  class="show-password1" onClick="togglePasswordType1();"><i class="fa fa-eye"></i></span>
                 </div>
-                
+
                 <div class="formfield">
                     <label for="frmZipcode">Country Code</label>
                     <select 
@@ -77,11 +77,7 @@
                         </span>
                     @endif
                 </div>
-               <!--  
-                <div class="formfield">
-                    <label for="frmDob">DOB</label>
-                    <input type="text" name="dob" value="{{old('dob')}}" class="form-control datepicker" autocomplete="off">
-                </div> -->
+              
                 <div class="formfield">
                     <label for="music_genre">Music Genre</label>
                     <select onchange="select_genre(this);" name="music_genre_id" id="frmMusicGenre" class="form-control">

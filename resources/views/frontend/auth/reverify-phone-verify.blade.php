@@ -20,13 +20,12 @@
                                         id="frmCountryCode" 
                                         name="country_code"
                                       >
-                                        <option value="+977">Nepal</option>
                                         <option value="+1">Canada +1</option>
                                         <option value="+44">United Kingdom +44</option>
                                         <option value="+1">United States +1</option>
                                     </select>
                                 </div>
-                
+
                                 <div class="formfield">
                                     <label for="loginName">Phone Number</label>
                                     <input type="text" name="phone">
