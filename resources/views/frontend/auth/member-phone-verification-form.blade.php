@@ -7,6 +7,7 @@
             <div class="box">
                 <div class="contactpage__wrap">
                     <section class="section__login">
+                        @include('layouts.message')
                         <h1 class="heading-page">Please verify your phone from code you have received.</h1>
                         <h2 class="heading">Verify Phone</h2>
                         <div class="loginform__wrap box-inner">
@@ -20,6 +21,12 @@
                                     <input type="submit" value="Verify">
                                 </div>
                             </form>
+                           <p>
+                                <a 
+                                href="{{ route('frontend.member.resend.phone.verify.code.form',$phoneNumber) }}">
+                                Didn't receive a code?  Resend 
+                                </a>
+                            </p>
                         </div>
                     </section>
                 </div>

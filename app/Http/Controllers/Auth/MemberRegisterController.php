@@ -113,7 +113,7 @@ class MemberRegisterController extends Controller
 
         $twilio->messages->create(
             // Where to send a text message (your cell phone?)
-            '+9779849224290',
+            $member->phone,
             array(
                 'from' => $twilio_number,
                 'body' => 'Your verification code is '.$member->verification_code

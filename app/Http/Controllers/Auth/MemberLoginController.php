@@ -152,7 +152,7 @@ class MemberLoginController extends Controller
           return redirect()->route('music.login')->withMessage('Your phone has been successfully verified!');
         }  
       } else{
-          return redirect()->route('music.login')->withMessage('Please type correct verification code!');
+          return redirect()->back()->withMessage('Please type correct verification code!');
       }
     }
     else{
@@ -207,22 +207,67 @@ class MemberLoginController extends Controller
     }
     
   }
+  
+  // Resend Verification code send from member phone verification
+  
+public function reSendMemberPhoneVerificationForm($phoneNumber){
+    $phoneNumber = decrypt($phoneNumber);
+    $member = Member::where('phone',$phoneNumber)->first();
+    if(isset($member)){
+      if($member->isPhoneVerified == 1){
+        return redirect()->route('music.login')->withMessage('Your Phone number is already verified');
+      }  
+      else{
+        $member->verification_code = mt_rand(111111,999999);
+
+        if( $member->save() ){
+            $sendOTP          = $this->sendVerifcationOTP( $member );
+            $verifyPhoneTable = VerifyPhone::where('phone',$member->phone)->first();
+            $currentDateTime  = Carbon::now();
+            $newDateTime      = $currentDateTime->addHours(15);
+              
+            if(isset($verifyPhoneTable)){
+             $verifyPhoneTable->phone       = $member->phone;
+              $verifyPhoneTable->count      = $verifyPhoneTable->count + 1;
+              $verifyPhoneTable->code       = $member->verification_code;
+              $verifyPhoneTable->expired_at = $newDateTime;
+              $verifyPhoneTable->save();
+            }else{
+              $newVerifyPhone             =  new VerifyPhone();
+              $newVerifyPhone->phone      = $member->phone;
+              $newVerifyPhone->code     = $member->verification_code;
+              $newVerifyPhone->count      = 1;
+              $newVerifyPhone->expired_at = $newDateTime;
+              $newVerifyPhone->save();
+            }
+
+        }
+
+       return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Resend OTP On your mobile');
+       
+      }
+    }
+    else{
+      return redirect()->route('music.login')->withErrors('Your Email Address is not exists.');
+    }
+    
+  }
+  
 
    public function sendVerifcationOTP( $member ){
         $token         = getenv("TWILIO_AUTH_TOKEN");
         $twilio_sid    = getenv("TWILIO_SID");
-        $twilio_number = '+12295525945';
+        $twilio_number = '+13016587597';
         $twilio        = new Client($twilio_sid, $token);
 
         $twilio->messages->create(
             // Where to send a text message (your cell phone?)
-            '+9779849224290',
+            $member->phone,
+            // '+9779849224290',
             array(
                 'from' => $twilio_number,
                 'body' => 'Your verification code is '.$member->verification_code
             )
         );
     }
-
-
 }

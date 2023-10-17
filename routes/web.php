@@ -393,6 +393,8 @@ Route::post('member/send/email/verify/link', [MemberLoginController::class, 'sen
 
 Route::post('member/resend/phone/verify/code', [MemberLoginController::class, 'reSendMemberPhoneVerifyCode'])->name('frontend.member.resend.phone.verify.code');
 
+Route::get('member/resend/verify/code/{phoneNumber}', [MemberLoginController::class, 'reSendMemberPhoneVerificationForm'])->name('frontend.member.resend.phone.verify.code.form');
+
 Route::post('member/phone/verify/{phone}', [MemberLoginController::class, 'phoneVerification'])->name('frontend.member.phone.verify');
 
 
