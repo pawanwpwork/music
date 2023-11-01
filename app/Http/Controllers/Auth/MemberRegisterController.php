@@ -10,8 +10,8 @@ use App\Http\Requests\MemberRequest;
 use App\Music\Services\MusicCategory\MusicCategoryService;
 use App\Music\Services\MemberSetting\MemberSettingService;
 use App\Http\Requests\MusicCategoryRequest;
-// New code for fast completion
 use App\Mail\ResendVerificationLink;
+use App\Mail\ResendVerificationCode;
 use Carbon\Carbon;
 use App\Models\VerifyEmail;
 use App\Models\VerifyPhone;
@@ -66,7 +66,7 @@ class MemberRegisterController extends Controller
             if($response) {
                 $member             = Member::where('phone',$response->phone)->first();
                 $sendOTP            = $this->sendVerifcationOTP( $member );
-                // $sendVerifyLink  = Mail::to($member->email)->send(new ResendVerificationLink($member)); 
+                Mail::to($member->email)->send(new ResendVerificationCode($member));
                 $verifyPhoneTable   = VerifyPhone::where('phone',$member->phone)->first();
                 $currentDateTime    = Carbon::now();
                 $newDateTime        = $currentDateTime->addMinutes(15);
@@ -79,7 +79,7 @@ class MemberRegisterController extends Controller
                 }else{
                   $newVerifyPhone             =  new VerifyPhone();
                   $newVerifyPhone->phone      = $member->phone;
-                  $newVerifyPhone->code     = $member->verification_code;
+                  $newVerifyPhone->code       = $member->verification_code;
                   $newVerifyPhone->count      = 1;
                   $newVerifyPhone->expired_at = $newDateTime;
                   $newVerifyPhone->save();
@@ -89,7 +89,7 @@ class MemberRegisterController extends Controller
                     $this->addToCartForMember($member);
                 }
                 DB::commit();
-                return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile');
+                return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile and email address.');
             }
 
         } catch (UserNotFoundException $e) {

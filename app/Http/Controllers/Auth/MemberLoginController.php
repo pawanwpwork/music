@@ -11,6 +11,7 @@ use App\Models\Member;
 use Auth;
 use Mail;
 use App\Mail\ResendVerificationLink;
+use App\Mail\ResendVerificationCode;
 use Carbon\Carbon;
 use Twilio\Rest\Client;
 
@@ -62,7 +63,7 @@ class MemberLoginController extends Controller
       else{
         Auth::guard('member')->logout();
         $verifyRoute = route('frontend.member.reverify.phone');
-        return redirect()->route('music.login')->withErrors('Please verify your phone first and click <a href="'.$verifyRoute.'" style="font-size:15px;color:blue;"> here </a> to send link.');     
+        return redirect()->route('music.login')->withErrors('Please verify your phone first and click <a href="'.$verifyRoute.'" style="font-size:15px;color:blue;"> here </a> to send verification code on sms and email.');     
       }
     }
     return redirect()->back()->withErrors('Crendentials not match');
@@ -177,6 +178,7 @@ class MemberLoginController extends Controller
 
         if( $member->save() ){
             $sendOTP          = $this->sendVerifcationOTP( $member );
+            Mail::to($member->email)->send(new ResendVerificationCode($member));
             $verifyPhoneTable = VerifyPhone::where('phone',$member->phone)->first();
             $currentDateTime  = Carbon::now();
             $newDateTime      = $currentDateTime->addHours(15);
@@ -190,7 +192,7 @@ class MemberLoginController extends Controller
             }else{
               $newVerifyPhone             =  new VerifyPhone();
               $newVerifyPhone->phone      = $member->phone;
-              $newVerifyPhone->code     = $member->verification_code;
+              $newVerifyPhone->code       = $member->verification_code;
               $newVerifyPhone->count      = 1;
               $newVerifyPhone->expired_at = $newDateTime;
               $newVerifyPhone->save();
@@ -198,7 +200,7 @@ class MemberLoginController extends Controller
 
         }
 
-       return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile');
+       return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile and email address.');
        
       }
     }
@@ -222,6 +224,7 @@ public function reSendMemberPhoneVerificationForm($phoneNumber){
 
         if( $member->save() ){
             $sendOTP          = $this->sendVerifcationOTP( $member );
+            Mail::to($member->email)->send(new ResendVerificationCode($member));
             $verifyPhoneTable = VerifyPhone::where('phone',$member->phone)->first();
             $currentDateTime  = Carbon::now();
             $newDateTime      = $currentDateTime->addHours(15);
@@ -243,7 +246,7 @@ public function reSendMemberPhoneVerificationForm($phoneNumber){
 
         }
 
-       return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Resend OTP On your mobile');
+       return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile and email address.');
        
       }
     }
