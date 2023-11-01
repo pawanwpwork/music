@@ -51,15 +51,10 @@ class MemberRegisterController extends Controller
     }
 
     public function memberRegisterFormByType($type){
-
     	$members     = $this->memberService->getmemberData();
-    	
         $categories  = $this->memberService->getMusicCategoryData();
-    	
         $genres      = $this->memberService->getGenreData();
-
     	$memberships = $this->memberService->getMembershipTypeData();
-
     	return view('frontend.auth.member-register-form',compact('type','members', 'genres', 'memberships', 'categories'));
     }
 
@@ -108,12 +103,13 @@ class MemberRegisterController extends Controller
     public function sendVerifcationOTP( $member ){
         $token         = getenv("TWILIO_AUTH_TOKEN");
         $twilio_sid    = getenv("TWILIO_SID");
-        $twilio_number = '+12295525945';
+        $twilio_number = '+13016587597';
         $twilio        = new Client($twilio_sid, $token);
 
         $twilio->messages->create(
             // Where to send a text message (your cell phone?)
             $member->phone,
+            // '+9779849224290',
             array(
                 'from' => $twilio_number,
                 'body' => 'Your verification code is '.$member->verification_code
@@ -126,11 +122,8 @@ class MemberRegisterController extends Controller
     }
 
     public function addToCartForMember($data){
-        
-        $membershipType = MembershipType::find($data->membership_type_id);
-
-        $membershipSetting = MembershipSettings::where('membership_type_id',$data->membership_type_id)->first();
-
+        $membershipType     = MembershipType::find($data->membership_type_id);
+        $membershipSetting  = MembershipSettings::where('membership_type_id',$data->membership_type_id)->first();
         $cart = new Cart();
         $cart->member_id = $data->id;
         $cart->type = 'membership';
@@ -139,7 +132,6 @@ class MemberRegisterController extends Controller
         $cart->quantity = 1;        
         $cart->product_id = $data->id;
         $cart->save();
-        
     }
 
     public function createMusicCategoryFromMemberRegisterForm(MusicCategoryRequest $request){

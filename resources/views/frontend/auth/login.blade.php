@@ -33,9 +33,9 @@
                             <!--<span  class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>-->
                         </div>
                        
-                        <div class="checkbox">                              
+                        <div class="checkbox">								
                         <label><input id="input-qlremember1" type="checkbox" name="remember" value="1"> Remember Me</label>
-                        </div>                      
+                        </div>						
                         
                         <div class="formfield formfield-submit">
                             <input type="submit" value="Login" class="btn btn-primary form-control">
