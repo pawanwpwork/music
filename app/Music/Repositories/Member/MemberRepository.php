@@ -103,17 +103,18 @@ class MemberRepository implements MemberInterface
 
     public function signup($request)
     {
-        $macAddr = exec('getmac');
-        $request['password']        = bcrypt($request['password']);
-        $profile_image              = imageUploadPost( isset($request['profile_image']) ? $request['profile_image'] : null, "profile");
-        $request['profile_image']  = $profile_image;
-        $slugText                  = $request['first_name'].' '.$request['last_name'];
-        $request['alias']          = unique_slug($slugText,'members');
-        $request['dob']            = databaseDateFormat($request['dob']);
-        $request['status']         = 0;
-        $request['ip_address']     = \Request::ip();
-        $request['mac_address']    = $macAdd ?? null;
-        $member                    = $this->member->create($request);
+        $macAddr                        = exec('getmac');
+        $request['password']            = bcrypt($request['password']);
+        $request['verification_code']   = mt_rand(111111,999999);
+        $request['phone']               = $request['country_code'].$request['phone'];
+        
+        $slugText                       = $request['first_name'].' '.$request['last_name'];
+        $request['alias']               = unique_slug($slugText,'members');
+        
+        $request['status']              = 0;
+        $request['ip_address']          = \Request::ip();
+        $request['mac_address']         = $macAdd ?? null;
+        $member                         = $this->member->create($request);
     
         if($member->membership_type_id == 1){
             $memberUpdate = $this->member->find($member->id);
@@ -138,7 +139,7 @@ class MemberRepository implements MemberInterface
     {
         $member                = $this->find($id);
         $request["updated_by"] = authGuardData('member')->id;
-        $request["dob"]        = databaseDateFormat($request["dob"]);
+        $request["dob"]        = $request["dob"];
         return $member->update($request);
     }
 

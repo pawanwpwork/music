@@ -30,7 +30,7 @@
                                     {{ $errors->first('password') }}
                                 </span>
                             @endif
-                            <span  class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>
+                            <!--<span  class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>-->
                         </div>
                        
                         <div class="checkbox">								
@@ -50,13 +50,13 @@
     </div>
 </div>
 <script>
-    function togglePasswordType() {
-        var x = document.getElementById("exampleInputPassword1");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
+    // function togglePasswordType() {
+    //     var x = document.getElementById("exampleInputPassword1");
+    //     if (x.type === "password") {
+    //         x.type = "text";
+    //     } else {
+    //         x.type = "password";
+    //     }
+    // }
 </script>
 @endsection

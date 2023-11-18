@@ -46,36 +46,27 @@
                             {{ $errors->first('password') }}
                         </span>
                     @endif
-                     <span class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>
+                     <!--<span class="show-password" onClick="togglePasswordType();"><i class="fa fa-eye"></i></span>-->
                 </div>
 
                 <div class="formfield">
                     <label for="password_confirmation">Re-type Password(*)</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" value="" class="form-control">
-                     <span  class="show-password1" onClick="togglePasswordType1();"><i class="fa fa-eye"></i></span>
+                     <!--<span  class="show-password1" onClick="togglePasswordType1();"><i class="fa fa-eye"></i></span>-->
                 </div>
 
                 <div class="formfield">
-                    <label for="frmAddress">Address</label>
-                    <input type="text" name="address" id="frmAddress" value="{{old('address')}}" class="form-control">
+                    <label for="frmZipcode">Country Code</label>
+                    <select 
+                        class="form-control" 
+                        id="frmCountryCode" 
+                        name="country_code"
+                      >
+                         <option value="+1">United States +1</option>
+                        <option value="+1">Canada +1</option>
+                        <option value="+44">United Kingdom +44</option>
+                    </select>
                 </div>
-                <div class="formfield">
-                    <label for="frmCity">City</label>
-                    <input type="text" name="city" id="frmCity" value="{{old('city')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmState">State</label>
-                    <input type="text" name="state" id="frmState" value="{{old('state')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmCountry">Country</label>
-                    <input type="text" name="country" id="frmCountry" value="{{old('country')}}" class="form-control">
-                </div>
-                <div class="formfield">
-                    <label for="frmZipcode">Zipcode</label>
-                    <input type="text" name="zipcode" id="frmZipcode" value="{{old('zipcode')}}" class="form-control">
-                </div>
-               
                 <div class="formfield">
                     <label for="frmCell">Cell(*)</label>
                     <input type="phone" name="phone" id="phone" value="{{old('phone')}}" class="form-control">
@@ -85,11 +76,7 @@
                         </span>
                     @endif
                 </div>
-                
-                <div class="formfield">
-                    <label for="frmDob">DOB</label>
-                    <input type="text" name="dob" value="{{old('dob')}}" class="form-control datepicker" autocomplete="off">
-                </div>
+              
                 <div class="formfield">
                     <label for="music_genre">Music Genre</label>
                     <select onchange="select_genre(this);" name="music_genre_id" id="frmMusicGenre" class="form-control">
@@ -151,27 +138,8 @@
                     </div>
                     <div class="new_category_container"></div>
                 </div>
-                {{--   
-                <div class="formfield formfield-addcat" id="addCategory" @if($type != 'musician') style="display:none" @endif>
-                    <input name="name" type="text" id="new_category" placeholder="Category name" class="form-control">
-                    <input type="button" id="add_music_cats" value="Add Category" onclick="add_music_cat('#new_category');" class="form-control">
-                </div>
-                --}}
-                
-                <div class="formfield formfield-upload" id="uploadImg">
-
-                    <label style="margin-right:30px;">Profile Picture</label>
-
-                    <input type="file" name="profile_image" id="profile_image">
-                    			
-                    <button type="button" id="button-profile" data-loading-text="Loading..." class="btn btn-default" style="margin-top:8px;"><i class="fa fa-upload" style="font-size:2em;"></i> </button>
-
-                    <button type="button" id="button-clear" data-loading-text="Loading..." class="btn btn-danger btn-bock" style="margin-top:8px;"><i class="fa fa-eraser" style="font-size:2em;"></i> </button>
-
-                    <input type="hidden" id="dpevent" name="profile_image" value="" class="form-control">
-                    
-                </div>
-
+             
+           
                 <div class="formfield">
                     @php $term = App\Models\Page::find(2);@endphp
                     <div class="music-terms-and-conditions" style="max-height: 200px; overflow: auto;">
@@ -201,31 +169,24 @@
 @section('footer-js')
 <script src="{{asset('assets/datepicker/datepicker.min.js')}}"></script>
 <script>
-    function togglePasswordType() {
-        var x = document.getElementById("frmPassword");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-     function togglePasswordType1() {
-        var x = document.getElementById("password_confirmation");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
+    // function togglePasswordType() {
+    //     var x = document.getElementById("frmPassword");
+    //     if (x.type === "password") {
+    //         x.type = "text";
+    //     } else {
+    //         x.type = "password";
+    //     }
+    // }
+    //  function togglePasswordType1() {
+    //     var x = document.getElementById("password_confirmation");
+    //     if (x.type === "password") {
+    //         x.type = "text";
+    //     } else {
+    //         x.type = "password";
+    //     }
+    // }
 </script>
 <script type="text/javascript">
-
-    $(".datepicker").datepicker({
-        autoClose: true,
-         format: "yyyy-mm-dd",
-        viewStart: 2
-    });
-
     function add_music_cat(element){
         var route = "{{route('create.music-category.from-register-form')}}";
         var new_category = $(element).val();
@@ -244,9 +205,6 @@
              }
         });
     }
-
-
-    
 </script>
 
 @endsection

@@ -10,15 +10,17 @@ use App\Http\Requests\MemberRequest;
 use App\Music\Services\MusicCategory\MusicCategoryService;
 use App\Music\Services\MemberSetting\MemberSettingService;
 use App\Http\Requests\MusicCategoryRequest;
-// New code for fast completion
 use App\Mail\ResendVerificationLink;
+use App\Mail\ResendVerificationCode;
 use Carbon\Carbon;
 use App\Models\VerifyEmail;
+use App\Models\VerifyPhone;
 use App\Models\Member;
 use App\Models\Cart;
 use App\Models\MembershipType;
 use App\Models\MembershipSettings;
 use Illuminate\Support\Facades\DB;
+use Twilio\Rest\Client;
 use File;
 use Response;
 use Auth;
@@ -49,15 +51,10 @@ class MemberRegisterController extends Controller
     }
 
     public function memberRegisterFormByType($type){
-
     	$members     = $this->memberService->getmemberData();
-    	
         $categories  = $this->memberService->getMusicCategoryData();
-    	
         $genres      = $this->memberService->getGenreData();
-
     	$memberships = $this->memberService->getMembershipTypeData();
-
     	return view('frontend.auth.member-register-form',compact('type','members', 'genres', 'memberships', 'categories'));
     }
 
@@ -66,41 +63,33 @@ class MemberRegisterController extends Controller
         try {
             DB::beginTransaction();
             $response = $this->memberService->signup($request->all());
-
             if($response) {
-
-                $member = Member::where('email',$response->email)->first();
-
-                $sendVerifyLink = Mail::to($member->email)->send(new ResendVerificationLink($member)); 
-      
-                $verifyEmailTable = VerifyEmail::where('email',$member->email)->first();
-
-                $currentDateTime = Carbon::now();
-
-                $newDateTime = $currentDateTime->addHours(24);
-                  
-
-                if(isset($verifyEmailTable)){
-                  $verifyEmailTable->email = $member->email;
-                  $verifyEmailTable->count = $verifyEmailTable->count + 1;
-                  $verifyEmailTable->expired_at = $newDateTime;
-                  $verifyEmailTable->save();
+                $member             = Member::where('phone',$response->phone)->first();
+                $sendOTP            = $this->sendVerifcationOTP( $member );
+                Mail::to($member->email)->send(new ResendVerificationCode($member));
+                $verifyPhoneTable   = VerifyPhone::where('phone',$member->phone)->first();
+                $currentDateTime    = Carbon::now();
+                $newDateTime        = $currentDateTime->addMinutes(15);
+                if(isset($verifyPhoneTable)){
+                  $verifyPhoneTable->phone      = $member->phone;
+                  $verifyPhoneTable->count      = $verifyPhoneTable->count + 1;
+                  $verifyPhoneTable->code       = $member->verification_code;
+                  $verifyPhoneTable->expired_at = $newDateTime;
+                  $verifyPhoneTable->save();
                 }else{
-                  $newVerifyEmail =  new VerifyEmail();
-                  $newVerifyEmail->email = $member->email;
-                  $newVerifyEmail->count = 1;
-                  $newVerifyEmail->expired_at = $newDateTime;
-                  $newVerifyEmail->save();
+                  $newVerifyPhone             =  new VerifyPhone();
+                  $newVerifyPhone->phone      = $member->phone;
+                  $newVerifyPhone->code       = $member->verification_code;
+                  $newVerifyPhone->count      = 1;
+                  $newVerifyPhone->expired_at = $newDateTime;
+                  $newVerifyPhone->save();
                 }
 
                 if($member->status == 0){
                     $this->addToCartForMember($member);
                 }
-                 DB::commit();
-                return redirect()->route('music.login')->withMessage('Successfully Register. Verification Link Has been sent successfully in your email address for email verification');
-
-
-                return redirect()->route('music.login')->withMessage('Successfully Register');
+                DB::commit();
+                return redirect()->route('music.otp.verify',['phoneNumber' => encrypt( $member->phone )])->withMessage('Successfully Send OTP On your mobile and email address.');
             }
 
         } catch (UserNotFoundException $e) {
@@ -111,12 +100,30 @@ class MemberRegisterController extends Controller
 
     }
 
+    public function sendVerifcationOTP( $member ){
+        $token         = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid    = getenv("TWILIO_SID");
+        $twilio_number = '+13016587597';
+        $twilio        = new Client($twilio_sid, $token);
+
+        $twilio->messages->create(
+            // Where to send a text message (your cell phone?)
+            $member->phone,
+            // '+9779849224290',
+            array(
+                'from' => $twilio_number,
+                'body' => 'Your verification code is '.$member->verification_code
+            )
+        );
+    }
+
+    public function phoneOTPVerify( $phoneNumber ){
+        return view('frontend.auth.member-phone-verification-form',compact('phoneNumber'));
+    }
+
     public function addToCartForMember($data){
-        
-        $membershipType = MembershipType::find($data->membership_type_id);
-
-        $membershipSetting = MembershipSettings::where('membership_type_id',$data->membership_type_id)->first();
-
+        $membershipType     = MembershipType::find($data->membership_type_id);
+        $membershipSetting  = MembershipSettings::where('membership_type_id',$data->membership_type_id)->first();
         $cart = new Cart();
         $cart->member_id = $data->id;
         $cart->type = 'membership';
@@ -125,7 +132,6 @@ class MemberRegisterController extends Controller
         $cart->quantity = 1;        
         $cart->product_id = $data->id;
         $cart->save();
-        
     }
 
     public function createMusicCategoryFromMemberRegisterForm(MusicCategoryRequest $request){

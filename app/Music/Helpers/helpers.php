@@ -21,10 +21,8 @@ if (! function_exists('databaseDateFormat')){
     {
         if ($date) {
             $data = strtotime($date);
-
             return date('Y-m-d', $data);
         }
-
         return null;
     }
 }
