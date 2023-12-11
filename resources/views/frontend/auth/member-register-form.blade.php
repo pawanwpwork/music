@@ -76,6 +76,15 @@
                         </span>
                     @endif
                 </div>
+
+                 <div class="formfield">
+                    <label class="terms-checkbox">
+                        <input type="checkbox" class="input-checkbox" name="twillo_terms" id="twillo_terms" required>
+                        <span class="music-terms-and-conditions-checkbox-text">
+                            I agree to receive One-time password(OTP) verification messaging from All Music All Artists at the phone number provided above.
+                            I understand I will receive messages to verify my account; data rates may apply. Reply, stop to opt out.
+                    </label>
+                </div>
               
                 <div class="formfield">
                     <label for="music_genre">Music Genre</label>

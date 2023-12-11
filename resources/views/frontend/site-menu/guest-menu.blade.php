@@ -6,6 +6,7 @@
             <li><a href="{{route('page.detail',['alias' => 'faq'])}}">FAQ</a></li>
              <li><a href="{{route('page.detail',['alias' => 'disclaimer'])}}">Disclaimer</a></li>
             <li><a href="{{route('page.detail',['alias' => 'term-and-conditions'])}}">Term and Conditions</a></li>
+            <li><a href="{{route('page.detail',['alias' => 'privacy-policy'])}}">Privacy & Policy</a></li>
         </ul>
     </li>
     <li class="has-submenu"><a href="{{ route('event.view') }}">Events</a>
