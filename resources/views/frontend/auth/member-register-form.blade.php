@@ -67,24 +67,7 @@
                         <option value="+44">United Kingdom +44</option>
                     </select>
                 </div>
-                <div class="formfield">
-                    <label for="frmCell">Cell(*)</label>
-                    <input type="phone" name="phone" id="phone" value="{{old('phone')}}" class="form-control">
-                    @if($errors->has('phone'))
-                        <span class="error-message">
-                            {{ $errors->first('phone') }}
-                        </span>
-                    @endif
-                </div>
-
-                 <div class="formfield">
-                    <label class="terms-checkbox">
-                        <input type="checkbox" class="input-checkbox" name="twillo_terms" id="twillo_terms" required>
-                        <span class="music-terms-and-conditions-checkbox-text">
-                            I agree to receive One-time password(OTP) verification messaging from All Music All Artists at the phone number provided above.
-                            I understand I will receive messages to verify my account; data rates may apply. Reply, stop to opt out.
-                    </label>
-                </div>
+               
               
                 <div class="formfield">
                     <label for="music_genre">Music Genre</label>
@@ -148,7 +131,26 @@
                     <div class="new_category_container"></div>
                 </div>
              
-           
+                <div class="formfield">
+                    <label for="frmCell">Cell(*)</label>
+                    <input type="phone" name="phone" id="phone" value="{{old('phone')}}" class="form-control">
+                    @if($errors->has('phone'))
+                        <span class="error-message">
+                            {{ $errors->first('phone') }}
+                        </span>
+                    @endif
+                </div>
+
+
+                <div class="formfield">
+                    <label class="terms-checkbox">
+                        <input type="checkbox" class="input-checkbox" name="twillo_terms" id="twillo_terms" required>
+                        <span class="music-terms-and-conditions-checkbox-text">
+                            I agree to receive One-time password(OTP) verification messaging from Advance Record International at the phone number provided above.
+                            I understand I will receive messages to verify my account; data rates may apply. Reply, stop to opt out.
+                    </label>
+                </div>
+
                 <div class="formfield">
                     @php $term = App\Models\Page::find(2);@endphp
                     <div class="music-terms-and-conditions" style="max-height: 200px; overflow: auto;">
@@ -159,9 +161,10 @@
                         <input type="checkbox" class="input-checkbox" name="terms" id="terms" required>
                         <span class="music-terms-and-conditions-checkbox-text">
                             I have read and agree to the website 
-                            <a href="javascript:void(0)" class="music-terms-and-conditions-link" data-toggle="music-terms-and-conditions">terms and conditions</a></span>&nbsp;<span class="required">*</span>
+                            <a href="https://allmusicallartist.com/page/term-and-conditions" style="text-decoration: underline;">Terms and Conditions </a>
+                             and <a href="https://allmusicallartist.com/page/privacy-policy" style="text-decoration: underline;">Privacy Policy.</a> </span>&nbsp;<span class="required">*</span> 
+                            <!-- <a href="javascript:void(0)" class="music-terms-and-conditions-link" data-toggle="music-terms-and-conditions">terms and conditions</a></span>&nbsp;<span class="required">*</span> and Privacy Policy. -->
                     </label>
-
                 </div>
 
                 <div class="formfield formfield-submit">
@@ -177,24 +180,7 @@
 @endsection
 @section('footer-js')
 <script src="{{asset('assets/datepicker/datepicker.min.js')}}"></script>
-<script>
-    // function togglePasswordType() {
-    //     var x = document.getElementById("frmPassword");
-    //     if (x.type === "password") {
-    //         x.type = "text";
-    //     } else {
-    //         x.type = "password";
-    //     }
-    // }
-    //  function togglePasswordType1() {
-    //     var x = document.getElementById("password_confirmation");
-    //     if (x.type === "password") {
-    //         x.type = "text";
-    //     } else {
-    //         x.type = "password";
-    //     }
-    // }
-</script>
+
 <script type="text/javascript">
     function add_music_cat(element){
         var route = "{{route('create.music-category.from-register-form')}}";

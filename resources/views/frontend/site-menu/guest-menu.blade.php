@@ -12,7 +12,6 @@
     <li class="has-submenu"><a href="{{ route('event.view') }}">Events</a>
         <ul>
             <li><a href="{{ route('event.view') }}">View Event</a></li>
-            <li><a href="{{ route('all.event.view') }}">All View Event</a></li>
         </ul>
     </li>
     <li class="has-submenu"><a href="{{ route('classified.buy') }}">Classified</a>
@@ -20,17 +19,10 @@
             <li><a href="{{ route('product.classified.category',['alias'=>'classified-equipment'] ) }}">Classified > Classified Equipment</a></li>
             <li><a href="{{ route('product.classified.category',['alias'=>'classified-misc'] ) }}">Classified > Classified Misc</a></li>
             <li><a href="{{ route('product.classified.category',['alias'=>'classified-services'] ) }}">Classified  > Classified Services</a></li>
-            <li><a href="{{ route('all.classified') }}">All Classified</a></li>
         </ul>
     </li>
 
-    <li class="has-submenu">
-        <a href="{{ route('cd.store') }}">Cd Store</a>
-        <ul>
-            <li><a href="{{ route('cd.store') }}">Cd Store</a></li>
-            <li><a href="{{ route('all.cd.store') }}">All Cd Store</a></li>
-        </ul>
-    </li>
+    <li><a href="{{ route('cd.store') }}">Cd Store</a></li>
 
     <li class="has-submenu">
         <a href="{{route('radio.listen')}}" target="_blank">Radio</a>

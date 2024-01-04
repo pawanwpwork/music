@@ -16,7 +16,6 @@
            
             @if($memberAccess->view_event == 1)
                 <li><a href="{{ route('event.view') }}">View Event</a></li>
-                <li><a href="{{ route('all.event.view') }}">All View Event</a></li>
             @endif
 
              @if($memberAccess->post_event == 1)
@@ -36,7 +35,7 @@
             <li><a href="{{ route('product.classified.category',['alias'=>'classified-equipment'] ) }}">Classified > Classified Equipment</a></li>
             <li><a href="{{ route('product.classified.category',['alias'=>'classified-misc'] ) }}">Classified > Classified Misc</a></li>
             <li><a href="{{ route('product.classified.category',['alias'=>'classified-services'] ) }}">Classified  > Classified Services</a></li>
-            <li><a href="{{ route('all.classified') }}">All Classified</a></li>
+            <!-- <li><a href="{{ route('classified.buy') }}">view</a></li> -->
             @endif
             
             @if($memberAccess->post_classified == 1)
@@ -51,7 +50,6 @@
             @if($memberAccess->cd_store == 1)
             <li>
                 <a href="{{ route('cd.store') }}">Cd Store</a>
-                <a href="{{ route('all.cd.store') }}">All Cd Store</a>
             </li>
             @endif
             @if($memberAccess->cd_sell == 1)
