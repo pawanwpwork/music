@@ -49,6 +49,8 @@ Route::get('about-us', [HomeController::class, 'about'])->name('about');
 
 Route::get('event/view', [HomeController::class, 'eventView'])->name('event.view');
 
+Route::get('all/event/view', [HomeController::class, 'allEventView'])->name('all.event.view');
+
 Route::get('event/view/calendar/ajax/filter', [HomeController::class, 'eventViewAjax'])->name('event.view.ajax');
 
 Route::get('event/single/{alias}', [HomeController::class, 'eventSinglePage'])->name('event.single');
@@ -79,11 +81,15 @@ Route::get('musician/search/result', [HomeController::class, 'musicianSearchResu
 
 Route::get('cd-store', [HomeController::class, 'cdStore'])->name('cd.store');
 
+Route::get('all/cd-store', [HomeController::class, 'allCdStore'])->name('all.cd.store');
+
 Route::get('cd-sell', [HomeController::class, 'cdSell'])->name('cd.sell');
 
 Route::get('cd/{alias}', [HomeController::class, 'cdDetails'])->name('cd.detail');
 
 Route::get('contact-us', [HomeController::class, 'contact'])->name('contact');
+
+Route::get('all/classified', [HomeController::class, 'allClassified'])->name('all.classified');
 
 Route::post('contact-us/form/post', [HomeController::class, 'contactPost'])->name('frontend.contact.post');
 

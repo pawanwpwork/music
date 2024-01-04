@@ -68,7 +68,7 @@ class HomeController extends Controller
       $this->rateSettingService = $rateSettingService;
       $this->categoryService = $categoryService;
       $this->productService = $productService;
-      $this->middleware('auth:member',['except' => ['index','about','eventView','eventSinglePage','eventPostView','buyClassified','classifiedSinglePage','cdStore','cdSinglePage','contactPost','contact','eventViewAjax','productClassifiedCategory','voscastPage']]);
+      $this->middleware('auth:member',['except' => ['index','about','eventView','eventSinglePage','eventPostView','buyClassified','classifiedSinglePage','cdStore','allCdStore','cdSinglePage','contactPost','contact','eventViewAjax','productClassifiedCategory','voscastPage','allEventView','allClassified']]);
    }
 
    public function index(){
@@ -103,26 +103,7 @@ class HomeController extends Controller
       }
       $perPage = 6;
       $skipData = $perPage * ( $page -1);
-     
-      
-      // if( isset($filters['from_date']) && isset($filters['to_date']))
-      // {
-      //    $filters['status']      = 'approved';
-      //    $filters['skip']        = $skipData;
-      //    $filters['per_page']    = $perPage;
-      //    $upcomingEvents         = $this->eventService->findAll($filters)->skip($skipData)->take($perPage);   
-      //    $totalEvent             = count( $this->eventService->findAll($filters) );
-      // }
-      // else
-      // {
-      //   $filters['status']       = 'approved';
-      //   $filters['from_date']    = date('Y-m-d');
-      //   $filters['skip']         = $skipData;
-      //   $filters['per_page']     = $perPage;
-      //   $upcomingEvents          = $this->eventService->findAll($filters)->skip($skipData)->take($perPage);
-      //   $totalEvent              = count( $this->eventService->findAll($filters) );
-      // }
-
+   
       if( isset($filters['from_date']) && isset($filters['to_date']))
       {
          $upcomingEvents = DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','!=','pending')->take(10)->orderby('event_end_date','ASC')->skip($skipData)->take($perPage)->get();
@@ -142,6 +123,27 @@ class HomeController extends Controller
       return view('frontend.event.view', compact('upcomingEvents','maxNumPage','totalEvent','page','perPage'));
    }
    
+   public function allEventView(Request $request){
+
+      $filters = $request->all();
+
+      if( isset($filters['from_date']) && isset($filters['to_date']))
+      {
+         $upcomingEvents = DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','!=','pending')->orderby('event_end_date','ASC')->get();
+      
+         $totalEvent  = count( DB::table('events')->whereDate('event_start_date','>=',date('Y-m-d',strtotime($filters['from_date'])))->whereDate('event_end_date','<=',date('Y-m-d',strtotime($filters['to_date'])))->whereNull('deleted_at')->where('status','!=','pending')->take(10)->orderby('event_end_date','ASC')->get() );
+       }
+       else
+       {
+         $upcomingEvents = DB::table('events')->whereDate('date_end','>=',date('Y-m-d'))->whereNull('deleted_at')->where('status','!=','pending')->orderby('event_end_date','ASC')->get();
+      
+         $totalEvent              = count( DB::table('events')->whereDate('date_end','>=',date('Y-m-d'))->whereNull('deleted_at')->where('status','!=','pending')->orderby('event_end_date','ASC')->get() ); 
+       }  
+     
+
+      return view('frontend.event.allview', compact('upcomingEvents','totalEvent'));
+   }
+
     public function eventViewAjax(Request $request)
     {
 
@@ -285,6 +287,19 @@ class HomeController extends Controller
 
    }
 
+   public function allClassified(){
+
+      $classifiedProducts   = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')
+               ->whereNotIn('category_id', [1,2,3,4])
+               ->where('products.status',1)
+               ->whereNull('deleted_at')
+               ->whereDate('products.date_end','>=',date('Y-m-d'))
+               ->get();
+
+      return view ('frontend.classified.all-classified', compact('classifiedProducts'));
+
+   }
+
     public function cdSinglePage($alias){
       
       $cdProduct = $this->productService->getProductFromAlias($alias);
@@ -412,6 +427,104 @@ class HomeController extends Controller
       return view('frontend.cd.cd-store', compact('cdProducts','maxNumPage','totalEvent','page','perPage','cdProductCount'));  
    }   
 
+   public function allCdStore(Request $request){
+   
+      if( isset($request->search) && isset($request->orderby) ) {
+        if($request->get('orderby') == 'default'){
+         $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('id', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+         $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('id', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+        if($request->get('orderby') == 'name_asc'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.name', 'asc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.name', 'asc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+        if($request->get('orderby') == 'name_desc'){
+            $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.name', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.name', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+        if($request->get('orderby') == 'price_low'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.name', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.price', 'asc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+        if($request->get('orderby') == 'price_high'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.price', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.price', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+        if($request->get('orderby') == 'model_asc'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.model', 'asc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.model', 'asc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+        if($request->get('orderby') == 'model_desc'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.model', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->where('products.name','like','%'.$request->get('search').'%')->orderBy('products.model', 'desc')->whereNull('deleted_at')->where('products.status',1)->get();
+        }
+
+      }
+      elseif(isset($request->orderby)){
+
+        if($request->get('orderby') == 'default'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('id', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('id', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+
+        if($request->get('orderby') == 'name_asc'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.name', 'asc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.name', 'asc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+
+        if($request->get('orderby') == 'name_desc'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.name', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.name', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+        if($request->get('orderby') == 'price_low'){
+         $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.price', 'asc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.price', 'asc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+
+        if($request->get('orderby') == 'price_high'){
+          $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.price', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.price', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+
+        if($request->get('orderby') == 'model_asc'){
+         $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.model', 'asc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+         $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.model', 'asc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+
+         if($request->get('orderby') == 'model_desc'){
+             $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.model', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+
+           $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('products.model', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();
+        }
+
+      }
+      else{
+        $cdProductCount = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('id', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();  
+
+        $cdProducts = DB::table('category_product')->leftJoin('products', 'category_product.product_id', '=', 'products.id')->whereIn('category_id', [1,2,3,4])->orderBy('id', 'desc')->where('products.status',1)->whereNull('deleted_at')->get();  
+      }
+  
+      return view('frontend.cd.all-cd-store', compact('cdProducts','cdProductCount'));  
+   } 
 
    public function cdSell(){
 
